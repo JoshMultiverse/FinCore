@@ -54,14 +54,15 @@ Frequently Asked Questions (FAQ):
 
 Why wont Visual Studio Code pick up my JDK?
 
-Check your enviroment variables 
+Check your environment variables 
 
 - Press `Windows`
 - Type `View advanced system settings`
 - Press `Environment Variables`
 - Verify there are variables called `PATH` and `JAVA_HOME`
-- If they dont exist configure the `PATH` to the path where the JDK was installed.
+- If they do not exist configure the `PATH` to the path where the JDK was installed.
 - Configure/Create `JAVA_HOME` and select the path to the `.bin` file within the Java Project
+
 
 
 
