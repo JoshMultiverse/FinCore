@@ -1,0 +1,11 @@
+FinCore/
+    |---- vscode/
+    |---- bin/
+    |---- lib/
+    |---- src/
+            |- .gitignore
+            |- README.md
+            |- App.java
+            |- projectStructure.txt
+
+
