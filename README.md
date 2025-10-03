@@ -21,4 +21,28 @@ For FinCore's project structure, I have chosen to use a standard build tool, ins
 
 <img width="365" height="190" alt="image" src="https://github.com/user-attachments/assets/8e1755bf-55f4-47d7-9f3e-a633fe06faef" />
 
+How to reproduce the same enviornment as FinCore?
+
+Prerequisities:
+- Install `Visual Studio Code`
+- Install `OpenJDK Java 21`
+- Install `Git`
+
+In Visual Studio Code, Install the following extensions if not pre-installed:
+-  `Test Runner for Java` (Microsoft)
+-  `Project Manager for Java` (Microsoft)
+-  `Extension Pack for Java` (Microsoft)
+-  `Debugger for Java` (Microsoft)
+
+From there, complete the following:
+- On the Visual Studio Code home page, press `Ctrl + Shift + P`
+- Type `Create Java Project`
+- Press `Enter`
+- Select `No build tools`
+- Choose the folder location
+- Input a name to the project
+- Press `Enter`
+- Your new project should appear in another tab + File Tree
+
+
 
