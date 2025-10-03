@@ -21,9 +21,9 @@ For FinCore's project structure, I have chosen to use a standard build tool, ins
 
 <img width="365" height="190" alt="image" src="https://github.com/user-attachments/assets/8e1755bf-55f4-47d7-9f3e-a633fe06faef" />
 
-How to reproduce the same enviornment as FinCore?
+How to reproduce the same environment as FinCore?
 
-Prerequisities:
+Prerequisites:
 - Install `Visual Studio Code`
 - Install `OpenJDK Java 21`
 - Install `Git`
@@ -43,6 +43,7 @@ From there, complete the following:
 - Input a name to the project
 - Press `Enter`
 - Your new project should appear in another tab + File Tree
+
 
 
 
