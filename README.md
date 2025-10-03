@@ -44,6 +44,26 @@ From there, complete the following:
 - Press `Enter`
 - Your new project should appear in another tab + File Tree
 
+Or clone the repository here:
+- Open `Visual Studio Code`
+- Press `Ctrl + Shift + '` to open a terminal environment
+- Copy and Paste this into the terminal `git clone git@github.com:JoshMultiverse/FinCore.git`
+- The project should load into `Visual Studio Code`
+
+Frequently Asked Questions (FAQ):
+
+Why wont Visual Studio Code pick up my JDK?
+
+Check your enviroment variables 
+
+- Press `Windows`
+- Type `View advanced system settings`
+- Press `Environment Variables`
+- Verify there are variables called `PATH` and `JAVA_HOME`
+- If they dont exist configure the `PATH` to the path where the JDK was installed.
+- Configure/Create `JAVA_HOME` and select the path to the `.bin` file within the Java Project
+
+
 
 
 
