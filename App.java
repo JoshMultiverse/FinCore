@@ -5,17 +5,15 @@ import java.util.Scanner;
 
 public class App {
     public static boolean isExit = false;
-    public static boolean isDeposit = false;
-    public static boolean isWithdraw = false;
-    public static boolean ischeckBalance = false;
     public static String Menu = """
-                ---- Welcome to FinCore! Select an option: ----
+            \n---------------Welcome to FinCore!----------------
                 1: Deposit
                 2: Withdraw
                 3: Check Balance
                 4: Exit
-                ------------------------------------------------
-            """;
+            ----------------------------------------------------
+
+            Please select an option:  """;
     public static int userChoice;
     public static double currentBalance = 1000;
 
@@ -26,7 +24,7 @@ public class App {
 
         while (!isExit) {
             // Print the menu out
-            IO.println(Menu);
+            IO.print(Menu);
 
             // If the input is a number
             if (checkInputIsValid(scanner)) {
@@ -40,18 +38,16 @@ public class App {
     static void setBankOperations(int userChoice, Scanner scanner) {
         switch (userChoice) {
             case 1:
-                // Change boolean value
-                isDeposit = true;
+                // Call deposit class
                 callDepositClass(currentBalance, scanner);
                 break;
             case 2:
-                // Change boolean value
-                isWithdraw = true;
+                // Call withdraw
                 callWithdrawClass(currentBalance, scanner);
                 break;
             case 3:
-                // Change boolean value
-                ischeckBalance = true;
+                // Call check balance
+                callCheckBalanceClass(currentBalance);
                 break;
             case 4:
                 IO.println("Thank you for using FinCore CLI Banking. Goodbye!");
@@ -83,8 +79,12 @@ public class App {
         currentBalance = withdrawInstance.returnNewBalance();
     }
 
-    public static void callCheckBalanceClass() {
+    public static void callCheckBalanceClass(double currentBalance) {
+        // Create an instance of the check balance class
+        CheckBalance checkBalanceInstance = new CheckBalance();
 
+        // Call the entry method to this class
+        checkBalanceInstance.displayCurrentBalance(currentBalance);
     }
 
     // Function to check if the input entered is valid
