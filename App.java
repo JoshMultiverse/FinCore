@@ -47,6 +47,7 @@ public class App {
             case 2:
                 // Change boolean value
                 isWithdraw = true;
+                callWithdrawClass(currentBalance, scanner);
                 break;
             case 3:
                 // Change boolean value
@@ -67,10 +68,19 @@ public class App {
 
         // Call the entry function to the class
         depositInstance.displayDepositText(currentBalance, scanner);
+
+        // update the current balance
+        currentBalance = depositInstance.returnNewBalance();
     }
 
-    public static void callWithdrawClass() {
+    public static void callWithdrawClass(double currentBalance, Scanner scanner) {
+        // Create a withdraw instance
+        Withdraw withdrawInstance = new Withdraw();
 
+        // Call the entry method to the class
+        withdrawInstance.displayWithdrawText(currentBalance, scanner);
+
+        currentBalance = withdrawInstance.returnNewBalance();
     }
 
     public static void callCheckBalanceClass() {

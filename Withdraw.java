@@ -3,45 +3,46 @@ package FinCore;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Deposit {
+public class Withdraw {
     // Intialising global variables
-    public static double amountToDeposit;
+    public static double amountToWithdraw;
     public static double balanceAfterTransaction;
 
     // Entry method to call upon the other methods
-    public void displayDepositText(double currentBalance, Scanner scanner) {
-        IO.print("Enter amount to deposit: $");
+    public void displayWithdrawText(double currentBalance, Scanner scanner) {
+        IO.print("Enter amount to withdraw: $");
 
         // Error handling in case the user enters a letter
         try {
-            double amountToDeposit = scanner.nextDouble();
+            double amountToWithdraw = scanner.nextDouble();
 
             // While loop to check they arent trying to add money
-            while (amountToDeposit < 0) {
+            while (amountToWithdraw < 0) {
                 scanner.nextLine();
 
-                IO.println("You cannot deposit negative values! Please try again!");
-                displayDepositText(currentBalance, scanner);
+                IO.println("You cannot withdraw a negative value! Please try again!");
+                displayWithdrawText(currentBalance, scanner);
             }
+
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
-            calculateNewBalance(currentBalance, truncateTo2DP(amountToDeposit));
+            calculateNewBalance(currentBalance, truncateTo2DP(amountToWithdraw));
         } catch (InputMismatchException eInputMismatchException) {
             scanner.nextLine();
 
             // Call function recursively until the right input is reached
             IO.println("Invalid Input. Please Try Again");
-            displayDepositText(currentBalance, scanner);
+            displayWithdrawText(currentBalance, scanner);
         }
     }
 
     // Method to truncate the user input to 2DP (Maximium allowed with money)
-    public static double truncateTo2DP(double amountToDeposit) {
-        return Math.floor(amountToDeposit * 100) / 100;
+    public static double truncateTo2DP(double amountToWithdraw) {
+        return Math.floor(amountToWithdraw * 100) / 100;
     }
 
-    // Method to subtract add two values from each other
-    public static void calculateNewBalance(double currentBalance, double amountToDeposit) {
-        printNewBalance(currentBalance + amountToDeposit);
+    // Method to subtract the two values from each other
+    public static void calculateNewBalance(double currentBalance, double amountToWithdraw) {
+        printNewBalance(currentBalance - amountToWithdraw);
     }
 
     // Method to print the new balance
