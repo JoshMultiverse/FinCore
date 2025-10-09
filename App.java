@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
+    public static boolean isExit = false;
     public static boolean isDeposit = false;
     public static boolean isWithdraw = false;
     public static boolean ischeckBalance = false;
@@ -20,15 +21,18 @@ public class App {
 
     // Main function
     public static void main(String[] args) {
-        IO.println(Menu);
-
         // Get the user input
         Scanner scanner = new Scanner(System.in);
 
-        // If the input is a number
-        if (checkInputIsValid(scanner)) {
-            // Shut the scanner and call the setBankOperation function
-            setBankOperations(userChoice, scanner);
+        while (!isExit) {
+            // Print the menu out
+            IO.println(Menu);
+
+            // If the input is a number
+            if (checkInputIsValid(scanner)) {
+                // Shut the scanner and call the setBankOperation function
+                setBankOperations(userChoice, scanner);
+            }
         }
     }
 
@@ -50,6 +54,8 @@ public class App {
                 break;
             case 4:
                 IO.println("Thank you for using FinCore CLI Banking. Goodbye!");
+                isExit = true;
+                break;
             default:
                 break;
         }

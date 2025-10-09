@@ -19,9 +19,7 @@ public class Deposit {
                 displayDepositText(currentBalance, scanner);
             }
 
-            scanner.close();
             calculateNewBalance(currentBalance, truncateTo2DP(amountToDeposit));
-
         } catch (InputMismatchException eInputMismatchException) {
             scanner.nextLine();
 
