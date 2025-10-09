@@ -4,9 +4,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    public static boolean Deposit = false;
-    public static boolean Withdraw = false;
-    public static boolean checkBalance = false;
+    public static boolean isDeposit = false;
+    public static boolean isWithdraw = false;
+    public static boolean ischeckBalance = false;
     public static String Menu = """
                 ---- Welcome to FinCore! Select an option: ----
                 1: Deposit
@@ -16,6 +16,7 @@ public class App {
                 ------------------------------------------------
             """;
     public static int userChoice;
+    public static double currentBalance = 1000;
 
     // Main function
     public static void main(String[] args) {
@@ -27,31 +28,47 @@ public class App {
         // If the input is a number
         if (checkInputIsValid(scanner)) {
             // Shut the scanner and call the setBankOperation function
-            scanner.close();
-            setBankOperations(userChoice);
+            setBankOperations(userChoice, scanner);
         }
     }
 
     // Function to get the option selected by the user
-    static void setBankOperations(int userChoice) {
+    static void setBankOperations(int userChoice, Scanner scanner) {
         switch (userChoice) {
             case 1:
                 // Change boolean value
-                Deposit = true;
+                isDeposit = true;
+                callDepositClass(currentBalance, scanner);
                 break;
             case 2:
                 // Change boolean value
-                Withdraw = true;
+                isWithdraw = true;
                 break;
             case 3:
                 // Change boolean value
-                checkBalance = true;
+                ischeckBalance = true;
                 break;
             case 4:
                 IO.println("Thank you for using FinCore CLI Banking. Goodbye!");
             default:
                 break;
         }
+    }
+
+    public static void callDepositClass(double currentBalance, Scanner scanner) {
+        // Create a new deposit instance
+        Deposit depositInstance = new Deposit();
+
+        // Call the entry function to the class
+        depositInstance.displayDepositText(currentBalance, scanner);
+    }
+
+    public static void callWithdrawClass() {
+
+    }
+
+    public static void callCheckBalanceClass() {
+
     }
 
     // Function to check if the input entered is valid
