@@ -86,14 +86,15 @@ This is what the application looks like in the console. As you can see, it clear
 
 Main Menu
 
-<img width="902" height="346" alt="Screenshot 2025-10-09 115434" src="https://github.com/user-attachments/assets/1f64ec8f-1137-41ae-8330-16ce421e997f" />
+
+<img width="729" height="332" alt="Screenshot 2025-10-09 124434" src="https://github.com/user-attachments/assets/72126d69-f395-4cd5-8d70-306d38c4d2fb" />
 
 
 The code for the main menu is quite simple. I first open a Scanner on line 23, the Java Class for allowing the user to enter text into the console. 
 
 I have also set a global variable called isExit whose value is defaulted to false. This allows me to use a while loop to check if this value has been changed, which we will see later in this section. I then print the menu (Shown above). I have set this as a variable because this will be used multiple times throughout the program (S1). You can see the variable definitions below. 
 
-<img width="1001" height="217" alt="Screenshot 2025-10-09 122358" src="https://github.com/user-attachments/assets/d29602b8-f5ae-4854-9f00-b3b1547518e7" />
+<img width="788" height="192" alt="Screenshot 2025-10-09 124819" src="https://github.com/user-attachments/assets/45d66e72-d6bb-4f8d-94ac-4dee74e438d8" />
 
 
 Context: using “”" means that you can print statements across multiple lines, \n allows me to start on a new line to allow for spacing. 
@@ -106,6 +107,7 @@ I bet you are wondering what happens if the user enters something that is not a 
 
 If the user does happen to enter a letter, either on purpose or accidentally, in my code I have included areas which catch what would be an error and handle it gracefully. Here is a code snippet to demonstrate what I am describing further. 
 
+<img width="902" height="346" alt="Screenshot 2025-10-09 115434" src="https://github.com/user-attachments/assets/62c8ec89-de5f-4286-8df2-166265cbd5b6" />
 
 
 As you can see here, I have used a try/except statement to handle any errors that will occur. In this case, I found that the error which occurs when a user enters a String when the program expected an Integer is the InputMismatchException.  
@@ -124,6 +126,7 @@ What happens if the user enters a number that is outside the range (1-4).
 
 Now we know what happens when the user enters a letter, lets dive deeper into what happens when the user enters a number, but it is out of the range of the menu. Below is a code snippet which checks if their input is outside the current range given.  
 
+<img width="1001" height="217" alt="Screenshot 2025-10-09 122358" src="https://github.com/user-attachments/assets/9974475f-dfb1-4a3d-b506-a1bac509f914" />
 
 
 As you can see, this method returns a boolean value, as this will get returned to the main method, which then goes and calls upon other methods after it knows the input will not cause an error. 
@@ -136,7 +139,7 @@ The setBankOperations Method
 
 Once the code has verified that a valid input has been entered, It will move onto the next stage of the code - Calling the correct method. This method is like the delivery driver in a post office. The parcel has been assigned a location, now it just needs to be delivered there. This example can be seen in the code snippet below:
 
-
+<img width="896" height="446" alt="Screenshot 2025-10-09 123517" src="https://github.com/user-attachments/assets/5739bb5f-5bb6-49b6-94ee-ab2372924f7f" />
 
 As you can see in this method, I have decided to use a switch here. This because when there is more than 3 more possible options that it can be, it is a lot more maintainable to use a switch than something like an if statement for example (S1). 
 
@@ -164,6 +167,7 @@ display[ACTION_NAME]Text
 
 This submethod is the entry method which will get called when the overall method is called from the main program. This can be viewed like the first domino in a chain. It will slowly begin a domino effect of calling all the other helper methods which enable this action to be possible. Lets dive into some code!
 
+<img width="948" height="498" alt="Screenshot 2025-10-09 130101" src="https://github.com/user-attachments/assets/a67f8d53-2827-4d15-86a0-02dcbe9f32e0" />
 
 
 This method begins by prompting the user to get how much they would like to withdraw from their current balance. Similar to the previous methods I discussed on the last section, this has a similar structure to it.
@@ -188,7 +192,7 @@ amountToWithdraw
 
 Within the amountToWithdraw, I wrapped the truncateTo2DP method inside it. This method is responsible for ensuring that the input is in the most accurate form possible, while still being valid. This method can be seen below:
 
-
+<img width="692" height="81" alt="Screenshot 2025-10-09 140429" src="https://github.com/user-attachments/assets/25ff2e4d-abd5-40a5-bb59-95727ebaf99d" />
 
 Context: Math.floor() rounds down positive numbers
 
@@ -198,11 +202,11 @@ Calculate New Balance + Print New Balance
 
 This method is the only place where there is a significant difference between the deposit and the withdraw method. This is because this is the method where the calculation is performed to either add/remove money to/from the current balance stored. This method can be seen below. 
 
-
+<img width="884" height="90" alt="Screenshot 2025-10-09 141330" src="https://github.com/user-attachments/assets/0dbfa92b-f14c-43b0-a699-7b0615a55551" />
 
 As you can see above, the currentBalance and the amountToDeposit are both taken in as parameters as these are the two operands (the numbers which the operation will be performed on) required for this calculation. The two numbers added together (deposit)/taken away(withdraw) are then passed as a parameter to the final method printNewBalance, which can be seen below:
 
-
+<img width="690" height="104" alt="Screenshot 2025-10-09 141718" src="https://github.com/user-attachments/assets/01937c6d-a1f5-4a98-82a1-a0bd51a1c17a" />
 
 In this method, the newBalance parameter which is the result of the calculation is then concatenated to the print statement, to indicate the result of the calculation to the user. The newBalance parameter is then saved to the balanceAfterTransaction, which allows for further processing. 
 
@@ -211,14 +215,14 @@ In this method, the newBalance parameter which is the result of the calculation 
 In this section, we discussed the structure of the deposit + withdraw methods and the overall role that they play in the program flow. In the next section, we will explore the structure of the CheckBalance method. 
 
 
-
 The Check Balance Method
 
 Within this method, it is only responsible for taking in the current balance that the user has and outputting it to the console. Therefore, it is a lot more simpler than the previous two methods, which both require some form of calculation to be completed. This method is further explained below:
 
-
+<img width="664" height="82" alt="Screenshot 2025-10-09 142104" src="https://github.com/user-attachments/assets/2d90925d-9f37-48b5-b39b-167691132ab9" />
 
 As you can see, the currentBalance is passed in as a parameter and is once again concatenated to the end of a print statement - enhancing user experience. 
+
 
 
 
