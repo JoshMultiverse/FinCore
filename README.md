@@ -90,7 +90,7 @@ Main Menu
 <img width="729" height="332" alt="Screenshot 2025-10-09 124434" src="https://github.com/user-attachments/assets/72126d69-f395-4cd5-8d70-306d38c4d2fb" />
 
 
-The code for the main menu is quite simple. I first open a Scanner on line 23, the Java Class for allowing the user to enter text into the console. 
+The code for the main menu is quite simple. I first open a `Scanner` on line 23, the Java Class for allowing the user to enter text into the console. 
 
 I have also set a global variable called isExit whose value is defaulted to false. This allows me to use a while loop to check if this value has been changed, which we will see later in this section. I then print the menu (Shown above). I have set this as a variable because this will be used multiple times throughout the program (S1). You can see the variable definitions below. 
 
@@ -222,6 +222,7 @@ Within this method, it is only responsible for taking in the current balance tha
 <img width="664" height="82" alt="Screenshot 2025-10-09 142104" src="https://github.com/user-attachments/assets/2d90925d-9f37-48b5-b39b-167691132ab9" />
 
 As you can see, the `currentBalance` variable is passed in as a parameter and is once again concatenated to the end of a print statement - enhancing user experience. 
+
 
 
 
