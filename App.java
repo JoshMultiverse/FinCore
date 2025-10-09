@@ -1,34 +1,35 @@
 package FinCore;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    public static boolean addEntry = false;
-    public static boolean viewSummary = false;
+    public static boolean Deposit = false;
+    public static boolean Withdraw = false;
     public static boolean checkBalance = false;
-
-    public static void main(String[] args) {
-        System.out.println("""
-                Welcome to FinCore! Select an option:
-                1: Add Entry
-                2: View Summary
+    public static String Menu = """
+                ---- Welcome to FinCore! Select an option: ----
+                1: Deposit
+                2: Withdraw
                 3: Check Balance
-                    """);
+                4: Exit
+                ------------------------------------------------
+            """;
+    public static int userChoice;
+
+    // Main function
+    public static void main(String[] args) {
+        IO.println(Menu);
 
         // Get the user input
         Scanner scanner = new Scanner(System.in);
-        int userChoice = scanner.nextInt();
 
-        // Check to make sure the user input is valid
-        while (userChoice < 1 || userChoice > 3) {
-            System.out.println("That input is invalid, please enter a value between 1 and 3 inclusive.");
-            userChoice = scanner.nextInt();
+        // If the input is a number
+        if (checkInputIsValid(scanner)) {
+            // Shut the scanner and call the setBankOperation function
+            scanner.close();
+            setBankOperations(userChoice);
         }
-
-        // Shut the scanner and call the setBankOperation function
-        scanner.close();
-        setBankOperations(userChoice);
-
     }
 
     // Function to get the option selected by the user
@@ -36,18 +37,51 @@ public class App {
         switch (userChoice) {
             case 1:
                 // Change boolean value
-                addEntry = true;
+                Deposit = true;
                 break;
             case 2:
                 // Change boolean value
-                viewSummary = true;
+                Withdraw = true;
                 break;
             case 3:
                 // Change boolean value
                 checkBalance = true;
                 break;
+            case 4:
+                IO.println("Thank you for using FinCore CLI Banking. Goodbye!");
             default:
                 break;
         }
+    }
+
+    // Function to check if the input entered is valid
+    public static boolean checkInputIsValid(Scanner scanner) {
+        // Use execption handling in case the user enters a text value
+        try {
+            // If the value is an int, pass to the next function to check if it is in the
+            // correct range
+            userChoice = scanner.nextInt();
+            return checkInputIsInRange(userChoice, scanner);
+
+        } catch (InputMismatchException eInputMismatchException) {
+            // This code will run if the user enters letters/symbols etc.
+            scanner.nextLine();
+
+            IO.println("Please enter a number");
+            IO.println(Menu);
+            return checkInputIsValid(scanner); // Call the function recursively
+        }
+    }
+
+    // Method to check that the input is within the desired range
+    public static boolean checkInputIsInRange(int userChoice, Scanner scanner) {
+        // Use a while loop to constantly check if the value is under 1 or over 4
+        while (userChoice < 1 || userChoice > 4) {
+            IO.println("That input is invalid, please enter a value between 1 and 4 inclusive.");
+            IO.println(Menu);
+            userChoice = scanner.nextInt();
+        }
+
+        return true;
     }
 }
