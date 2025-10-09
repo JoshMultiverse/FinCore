@@ -80,18 +80,20 @@ What it looks like
 
 This is what the application looks like in the console. As you can see, it clearly shows the four options and it's corresponding number. Then, below you can see the prompt that the user has to enter to allow them to access their intended page. I will discuss each page as well as the code behind it in later sections. 
 
-
+<img width="435" height="147" alt="Screenshot 2025-10-09 114537" src="https://github.com/user-attachments/assets/706e16b8-468d-4fa9-9494-3952ec13dd8c" />
 
 
 
 Main Menu
 
+<img width="902" height="346" alt="Screenshot 2025-10-09 115434" src="https://github.com/user-attachments/assets/1f64ec8f-1137-41ae-8330-16ce421e997f" />
 
 
 The code for the main menu is quite simple. I first open a Scanner on line 23, the Java Class for allowing the user to enter text into the console. 
 
 I have also set a global variable called isExit whose value is defaulted to false. This allows me to use a while loop to check if this value has been changed, which we will see later in this section. I then print the menu (Shown above). I have set this as a variable because this will be used multiple times throughout the program (S1). You can see the variable definitions below. 
 
+<img width="1001" height="217" alt="Screenshot 2025-10-09 122358" src="https://github.com/user-attachments/assets/d29602b8-f5ae-4854-9f00-b3b1547518e7" />
 
 
 Context: using “”" means that you can print statements across multiple lines, \n allows me to start on a new line to allow for spacing. 
@@ -217,6 +219,7 @@ Within this method, it is only responsible for taking in the current balance tha
 
 
 As you can see, the currentBalance is passed in as a parameter and is once again concatenated to the end of a print statement - enhancing user experience. 
+
 
 
 
