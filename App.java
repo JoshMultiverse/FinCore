@@ -17,6 +17,12 @@ public class App {
     public static int userChoice;
     public static double currentBalance = 1000;
 
+    // Create a withdraw instance
+    public static Withdraw withdrawInstance = new Withdraw();
+
+    // Create a new deposit instance
+    public static Deposit depositInstance = new Deposit();
+
     // Main function
     public static void main(String[] args) {
         // Get the user input
@@ -40,10 +46,13 @@ public class App {
             case 1:
                 // Call deposit class
                 callDepositClass(currentBalance, scanner);
+                // update the current balance
+                currentBalance = depositInstance.returnNewBalance();
                 break;
             case 2:
                 // Call withdraw
                 callWithdrawClass(currentBalance, scanner);
+                currentBalance = withdrawInstance.returnNewBalance();
                 break;
             case 3:
                 // Call check balance
@@ -59,24 +68,13 @@ public class App {
     }
 
     public static void callDepositClass(double currentBalance, Scanner scanner) {
-        // Create a new deposit instance
-        Deposit depositInstance = new Deposit();
-
         // Call the entry function to the class
         depositInstance.displayDepositText(currentBalance, scanner);
-
-        // update the current balance
-        currentBalance = depositInstance.returnNewBalance();
     }
 
     public static void callWithdrawClass(double currentBalance, Scanner scanner) {
-        // Create a withdraw instance
-        Withdraw withdrawInstance = new Withdraw();
-
         // Call the entry method to the class
         withdrawInstance.displayWithdrawText(currentBalance, scanner);
-
-        currentBalance = withdrawInstance.returnNewBalance();
     }
 
     public static void callCheckBalanceClass(double currentBalance) {

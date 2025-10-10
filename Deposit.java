@@ -41,11 +41,12 @@ public class Deposit {
 
     // Method to subtract add two values from each other
     public static void calculateNewBalance(double currentBalance, double amountToDeposit) {
-        printNewBalance(currentBalance + amountToDeposit);
+        printNewBalance(currentBalance + amountToDeposit, amountToDeposit);
     }
 
-    // Method to print the new balance
-    public static void printNewBalance(double newBalance) {
+    // Method to print the new balance and the amount deposited
+    public static void printNewBalance(double newBalance, double amountToDeposit) {
+        IO.println("Deposit successful! You deposited: $" + amountToDeposit);
         IO.println("Your new balance is: $" + newBalance);
         balanceAfterTransaction = newBalance;
     }

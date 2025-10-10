@@ -24,6 +24,15 @@ public class Withdraw {
                 displayWithdrawText(currentBalance, scanner);
             }
 
+            // While loop to check that the user is not withdrawing more than they have in
+            // their account
+            while (amountToWithdraw > currentBalance) {
+                scanner.nextLine();
+
+                IO.println("You cannot withdraw more than your current balance!");
+                displayWithdrawText(currentBalance, scanner);
+            }
+
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
             calculateNewBalance(currentBalance, truncateTo2DP(amountToWithdraw));
         } catch (InputMismatchException eInputMismatchException) {
@@ -42,11 +51,12 @@ public class Withdraw {
 
     // Method to subtract the two values from each other
     public static void calculateNewBalance(double currentBalance, double amountToWithdraw) {
-        printNewBalance(currentBalance - amountToWithdraw);
+        printNewBalance(currentBalance - amountToWithdraw, amountToWithdraw);
     }
 
     // Method to print the new balance
-    public static void printNewBalance(double newBalance) {
+    public static void printNewBalance(double newBalance, double amountToWithdraw) {
+        IO.println("Withdrawal successful! Your withdrew: $" + amountToWithdraw);
         IO.println("Your new balance is: $" + newBalance);
         balanceAfterTransaction = newBalance;
     }
