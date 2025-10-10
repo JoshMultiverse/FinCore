@@ -46,7 +46,7 @@ public class LogIn {
     private static boolean doesPasswordMatchCurrent(String userEmail, String userPassword) {
         // Opens the CSV file, compares each line to the email and password entered. If
         // they match - return a true value.
-        try (Scanner scanner = new Scanner(new File("userCredentials.csv"))) {
+        try (Scanner scanner = new Scanner(new File("csv/userCredentials.csv"))) {
             String[] emailAndPassword = new String[] { userEmail, userPassword };
 
             while (scanner.hasNextLine()) {
@@ -68,7 +68,7 @@ public class LogIn {
 
     // Method which scans through the users CSV file and checks if the email exists.
     private static boolean doesEmailExist(String userEmail) {
-        try (Scanner scanner = new Scanner(new File("userBalances.csv"))) {
+        try (Scanner scanner = new Scanner(new File("csv/userBalances.csv"))) {
             while (scanner.hasNextLine()) {
                 if (scanner.nextLine().contains(userEmail)) {
                     return true;
@@ -84,7 +84,7 @@ public class LogIn {
 
     // Method to find the current user balance which is stored in the CSV file.
     private static Integer findUserBalance(String userEmail) {
-        try (Scanner scanner = new Scanner(new File("users.csv"))) {
+        try (Scanner scanner = new Scanner(new File("csv/userBalances.csv"))) {
             while (scanner.hasNextLine()) {
                 String[] values = scanner.nextLine().split(",");
 

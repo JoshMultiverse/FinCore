@@ -14,6 +14,7 @@ public class App {
             ----------------------------------------------------
 
             Please select an option:  """;
+    public static String goodbyeMessage = "Thank you for using FinCore CLI Banking. Goodbye!";
     public static int userChoice;
     public static double currentBalance = 1000;
     public static boolean returnToMainMenu = false;
@@ -54,7 +55,7 @@ public class App {
             currentBalance = logInInstance.getUserBalance(logInInstance.userEmail);
 
             // Print the menu out + current balance
-            IO.print("Welcome, " + logInInstance.userEmail + " Your current balance is $" + currentBalance);
+            IO.print("Welcome, " + logInInstance.userEmail + "! Your current balance is $" + currentBalance);
             IO.print(Menu);
 
             // If the input is a number
@@ -65,6 +66,8 @@ public class App {
                 setBankOperations(userChoice, scanner);
             }
         }
+
+        IO.println(goodbyeMessage);
     }
 
     static boolean compareCounterToAttemptsMade(int counter) {
@@ -98,7 +101,6 @@ public class App {
                 callCheckBalanceClass(currentBalance);
                 break;
             case 4:
-                IO.println("Thank you for using FinCore CLI Banking. Goodbye!");
                 isExit = true;
                 break;
             default:
