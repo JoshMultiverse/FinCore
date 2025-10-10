@@ -17,20 +17,44 @@ public class App {
     public static int userChoice;
     public static double currentBalance = 1000;
     public static boolean returnToMainMenu = false;
+    private static int passwordAttempts = 3;
 
     // Create a withdraw instance
-    public static Withdraw withdrawInstance = new Withdraw();
+    private static Withdraw withdrawInstance = new Withdraw();
 
     // Create a new deposit instance
-    public static Deposit depositInstance = new Deposit();
+    private static Deposit depositInstance = new Deposit();
+
+    private static LogIn logInInstance = new LogIn();
 
     // Main function
     public static void main(String[] args) {
+        int counter = 0;
         // Get the user input
         Scanner scanner = new Scanner(System.in);
 
+        // Try to log user in - limited to 3 attempts
+        while (counter < passwordAttempts) {
+            boolean areCredentialsCorrect = logInInstance.checkUserCredentials(scanner);
+
+            // If their credentials are correct, break outside of the loop
+            if (areCredentialsCorrect) {
+                break;
+            }
+            // Increment the counter when the user gets uses a log in attempt
+            counter += 1;
+        }
+        // Set the isExit variable so that if more than 3 attempts were made, the
+        // program terminates.
+        isExit = compareCounterToAttemptsMade(counter);
+
+        // Main menu loop
         while (!isExit) {
-            // Print the menu out
+            // Gets the global userEmail variable from the log in instance.
+            currentBalance = logInInstance.getUserBalance(logInInstance.userEmail);
+
+            // Print the menu out + current balance
+            IO.print("Welcome, " + logInInstance.userEmail + " Your current balance is $" + currentBalance);
             IO.print(Menu);
 
             // If the input is a number
@@ -41,6 +65,10 @@ public class App {
                 setBankOperations(userChoice, scanner);
             }
         }
+    }
+
+    static boolean compareCounterToAttemptsMade(int counter) {
+        return counter == 3;
     }
 
     // Function to get the option selected by the user
