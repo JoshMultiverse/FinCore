@@ -7,10 +7,15 @@ public class Withdraw {
     // Intialising global variables
     public static double amountToWithdraw;
     public static double balanceAfterTransaction;
+    public static Supporters supportersInstance = new Supporters();
 
     // Entry method to call upon the other methods
     public void displayWithdrawText(double currentBalance, Scanner scanner) {
-        IO.print("Enter amount to withdraw: $");
+        if (App.returnToMainMenu) {
+            return;
+        }
+
+        IO.print("Enter amount to withdraw or enter mm to return to the main menu: $");
 
         // Error handling in case the user enters a letter
         try {
@@ -22,6 +27,7 @@ public class Withdraw {
 
                 IO.println("You cannot withdraw a negative value! Please try again!");
                 displayWithdrawText(currentBalance, scanner);
+                return;
             }
 
             // While loop to check that the user is not withdrawing more than they have in
@@ -31,16 +37,22 @@ public class Withdraw {
 
                 IO.println("You cannot withdraw more than your current balance!");
                 displayWithdrawText(currentBalance, scanner);
+                return;
             }
 
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
             calculateNewBalance(currentBalance, truncateTo2DP(amountToWithdraw));
         } catch (InputMismatchException eInputMismatchException) {
-            scanner.nextLine();
+            if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
+                App.returnToMainMenu = true;
+                return;
+            } else {
+                scanner.nextLine();
 
-            // Call function recursively until the right input is reached
-            IO.println("Invalid Input. Please Try Again");
-            displayWithdrawText(currentBalance, scanner);
+                // Call function recursively until the right input is reached
+                IO.println("Invalid Input. Please Try Again");
+                displayWithdrawText(currentBalance, scanner);
+            }
         }
     }
 

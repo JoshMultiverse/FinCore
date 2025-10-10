@@ -7,10 +7,15 @@ public class Deposit {
     // Intialising global variables
     public static double amountToDeposit;
     public static double balanceAfterTransaction;
+    public static Supporters supportersInstance = new Supporters();
 
     // Entry method to call upon the other methods
     public void displayDepositText(double currentBalance, Scanner scanner) {
-        IO.print("Enter amount to deposit: $");
+        if (App.returnToMainMenu) {
+            return;
+        }
+
+        IO.print("Enter amount to deposit or enter 'mm' to return to the main menu: $");
 
         // Error handling in case the user enters a letter
         try {
@@ -22,15 +27,22 @@ public class Deposit {
 
                 IO.println("You cannot deposit negative values! Please try again!");
                 displayDepositText(currentBalance, scanner);
+                return;
             }
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
             calculateNewBalance(currentBalance, truncateTo2DP(amountToDeposit));
         } catch (InputMismatchException eInputMismatchException) {
-            scanner.nextLine();
+            if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
+                App.returnToMainMenu = true;
+                return;
+            } else {
+                scanner.nextLine();
 
-            // Call function recursively until the right input is reached
-            IO.println("Invalid Input. Please Try Again");
-            displayDepositText(currentBalance, scanner);
+                // Call function recursively until the right input is reached
+                IO.println("Invalid Input. Please Try Again");
+                displayDepositText(currentBalance, scanner);
+                return;
+            }
         }
     }
 

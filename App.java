@@ -16,6 +16,7 @@ public class App {
             Please select an option:  """;
     public static int userChoice;
     public static double currentBalance = 1000;
+    public static boolean returnToMainMenu = false;
 
     // Create a withdraw instance
     public static Withdraw withdrawInstance = new Withdraw();
@@ -34,7 +35,9 @@ public class App {
 
             // If the input is a number
             if (checkInputIsValid(scanner)) {
-                // Shut the scanner and call the setBankOperation function
+                // Reset the return to main menu value
+                returnToMainMenu = false;
+                // Call the setBankOperation function
                 setBankOperations(userChoice, scanner);
             }
         }
@@ -44,15 +47,23 @@ public class App {
     static void setBankOperations(int userChoice, Scanner scanner) {
         switch (userChoice) {
             case 1:
-                // Call deposit class
-                callDepositClass(currentBalance, scanner);
-                // update the current balance
-                currentBalance = depositInstance.returnNewBalance();
+                while (!returnToMainMenu) {
+                    // Call deposit class
+                    callDepositClass(currentBalance, scanner);
+                    // update the current balance
+                    currentBalance = depositInstance.returnNewBalance();
+                    break;
+                }
+
                 break;
             case 2:
-                // Call withdraw
-                callWithdrawClass(currentBalance, scanner);
-                currentBalance = withdrawInstance.returnNewBalance();
+                while (!returnToMainMenu) {
+                    // Call withdraw
+                    callWithdrawClass(currentBalance, scanner);
+                    currentBalance = withdrawInstance.returnNewBalance();
+                    break;
+                }
+
                 break;
             case 3:
                 // Call check balance
