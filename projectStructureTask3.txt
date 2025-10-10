@@ -1,0 +1,16 @@
+FinCore/
+    |---- vscode/
+    |---- bin/
+    |---- lib/
+    |---- src/
+            |- .gitignore
+            |- README.md
+            |- App.java
+            |- projectStructure.txt
+            |- CheckBalance.java
+            |- Deposit.java
+            |- Withdraw.java
+
+            
+
+
