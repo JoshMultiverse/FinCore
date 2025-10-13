@@ -21,12 +21,15 @@ public class App {
     private static int passwordAttempts = 3;
 
     // Create a withdraw instance
-    private static Withdraw withdrawInstance = new Withdraw();
+    private static Withdraw withdrawInstance = new Withdraw(currentBalance);
 
     // Create a new deposit instance
-    private static Deposit depositInstance = new Deposit();
+    private static Deposit depositInstance = new Deposit(currentBalance);
 
+    // Creating a log in instance
     private static LogIn logInInstance = new LogIn();
+
+    private static Supporters supportersInstance = new Supporters();
 
     // Main function
     public static void main(String[] args) {
@@ -82,7 +85,7 @@ public class App {
                     // Call deposit class
                     callDepositClass(currentBalance, scanner);
                     // update the current balance
-                    currentBalance = depositInstance.returnNewBalance();
+                    currentBalance = supportersInstance.returnNewBalance(Deposit.balanceAfterTransaction);
                     break;
                 }
 
@@ -91,7 +94,7 @@ public class App {
                 while (!returnToMainMenu) {
                     // Call withdraw
                     callWithdrawClass(currentBalance, scanner);
-                    currentBalance = withdrawInstance.returnNewBalance();
+                    currentBalance = supportersInstance.returnNewBalance(Withdraw.balanceAfterTransaction);
                     break;
                 }
 
@@ -110,12 +113,12 @@ public class App {
 
     public static void callDepositClass(double currentBalance, Scanner scanner) {
         // Call the entry function to the class
-        depositInstance.displayDepositText(currentBalance, scanner);
+        depositInstance.displayDepositText(scanner);
     }
 
     public static void callWithdrawClass(double currentBalance, Scanner scanner) {
         // Call the entry method to the class
-        withdrawInstance.displayWithdrawText(currentBalance, scanner);
+        withdrawInstance.displayWithdrawText(scanner);
     }
 
     public static void callCheckBalanceClass(double currentBalance) {

@@ -5,12 +5,17 @@ import java.util.Scanner;
 
 public class Deposit {
     // Intialising global variables
-    public static double amountToDeposit;
-    public static double balanceAfterTransaction;
+    protected static double amountToDeposit;
+    protected static double balanceAfterTransaction;
+    protected static double currentBalance;
     public static Supporters supportersInstance = new Supporters();
 
+    public Deposit(double currentBalance) {
+        Deposit.currentBalance = currentBalance;
+    }
+
     // Entry method to call upon the other methods
-    public void displayDepositText(double currentBalance, Scanner scanner) {
+    public void displayDepositText(Scanner scanner) {
         if (App.returnToMainMenu) {
             return;
         }
@@ -26,11 +31,11 @@ public class Deposit {
                 scanner.nextLine();
 
                 IO.println("You cannot deposit negative values! Please try again!");
-                displayDepositText(currentBalance, scanner);
+                displayDepositText(scanner);
                 return;
             }
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
-            calculateNewBalance(currentBalance, truncateTo2DP(amountToDeposit));
+            calculateNewBalance(supportersInstance.truncateTo2DP(amountToDeposit));
         } catch (InputMismatchException eInputMismatchException) {
             if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
                 App.returnToMainMenu = true;
@@ -40,19 +45,14 @@ public class Deposit {
 
                 // Call function recursively until the right input is reached
                 IO.println("Invalid Input. Please Try Again");
-                displayDepositText(currentBalance, scanner);
+                displayDepositText(scanner);
                 return;
             }
         }
     }
 
-    // Method to truncate the user input to 2DP (Maximium allowed with money)
-    public static double truncateTo2DP(double amountToDeposit) {
-        return Math.floor(amountToDeposit * 100) / 100;
-    }
-
     // Method to subtract add two values from each other
-    public static void calculateNewBalance(double currentBalance, double amountToDeposit) {
+    public static void calculateNewBalance(double amountToDeposit) {
         printNewBalance(currentBalance + amountToDeposit, amountToDeposit);
     }
 
@@ -61,10 +61,5 @@ public class Deposit {
         IO.println("Deposit successful! You deposited: $" + amountToDeposit);
         IO.println("Your new balance is: $" + newBalance);
         balanceAfterTransaction = newBalance;
-    }
-
-    // Method to return the new balance
-    public double returnNewBalance() {
-        return balanceAfterTransaction;
     }
 }
