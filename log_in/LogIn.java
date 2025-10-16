@@ -1,6 +1,9 @@
 package FinCore.log_in;
 
 import java.util.Scanner;
+
+import FinCore.sign_up.SignUp;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -33,7 +36,13 @@ public class LogIn {
             return false;
         }
         // Indicate the email was not correct + return unsucessful sign in
-        IO.println("Email not found");
+        IO.println("Email not found. Sign Up> (y/n)");
+        if (doesUserWantToSignUp(scanner)) {
+            SignUp signUpInstance = new SignUp();
+            IO.println(signUpInstance.signUpForm(scanner));
+            return signUpInstance.signUpForm(scanner);
+        }
+
         return false;
     }
 
@@ -68,17 +77,44 @@ public class LogIn {
 
     // Method which scans through the users CSV file and checks if the email exists.
     private static boolean doesEmailExist(String userEmail) {
-        try (Scanner scanner = new Scanner(new File("csv/userBalances.csv"))) {
+        // Try and open the file for the role that the user has chosen to log in as
+        try (Scanner scanner = new Scanner(new File("csv/userCredentials.csv"))) {
+            // Go through all of the lines in the file to check if the email exists on one
+            // of the lines
             while (scanner.hasNextLine()) {
-                if (scanner.nextLine().contains(userEmail)) {
+                String line = scanner.nextLine();
+                // This regex splits the next line up by a comma, used to seperate elements in a
+                // CSV file
+                String[] lineParts = line.split("\\s{0,},\\s{0,}");
+
+                // If the email element is equal to the email
+                if (lineParts[0].equals(userEmail)) {
                     return true;
                 }
             }
 
             return false;
         } catch (FileNotFoundException eFileNotFoundException) {
-            System.err.println("File not found in current working directory");
+            eFileNotFoundException.printStackTrace();
             return false;
+        }
+    }
+
+    // Check if the user wants to sign up
+    public static boolean doesUserWantToSignUp(Scanner scanner) {
+        // Convert to lower case
+        String doesUserWantToSignUpResponse = scanner.nextLine().toLowerCase();
+
+        // Use a switch to evaluate the user's response.
+        switch (doesUserWantToSignUpResponse) {
+            case "y":
+                return true;
+            case "n":
+                return false;
+            default:
+                // Call recursively if the user does enter y or n
+                IO.println("Please enter y or n");
+                return doesUserWantToSignUp(scanner);
         }
     }
 

@@ -6,12 +6,20 @@ import java.io.*;
 import java.util.*;
 
 // Class to handle all of my file operations which I need to do
-public class FileEditor {
+public class UserBalanceFileEditor {
     private String currentLine;
     private int LineCounter;
 
-    public FileEditor(int resetLineCounter) {
+    public UserBalanceFileEditor(int resetLineCounter) {
         this.LineCounter = resetLineCounter;
+    }
+
+    public void IntialiseUserAccount(String email, float startingBalance) {
+        try (FileWriter userBalanceFile = new FileWriter("csv/userBalances.csv", true)) {
+            userBalanceFile.write(email + "," + startingBalance + "\n");
+        } catch (IOException eIoException) {
+            eIoException.printStackTrace();
+        }
     }
 
     public void ChangeBalance(String currentBalance, String operation) {

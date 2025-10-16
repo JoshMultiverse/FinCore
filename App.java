@@ -34,7 +34,7 @@ public class App {
 
     private static Supporters supportersInstance = new Supporters();
 
-    private static FileEditor fileEditorInstance = new FileEditor(0);
+    private static UserBalanceFileEditor fileEditorInstance = new UserBalanceFileEditor(0);
 
     // Main function
     public static void main(String[] args) {
