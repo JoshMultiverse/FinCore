@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 // Public class used to log people in
 public class LogIn {
     // Define global variables - dont want password being used outside of the class
-    public String userEmail;
+    public static String userEmail;
     private static String userPassword;
 
     // Method to check that the user credentials are valid - entry method for this
@@ -83,7 +83,7 @@ public class LogIn {
     }
 
     // Method to find the current user balance which is stored in the CSV file.
-    private static Integer findUserBalance(String userEmail) {
+    private static Double findUserBalance(String userEmail) {
         try (Scanner scanner = new Scanner(new File("csv/userBalances.csv"))) {
             while (scanner.hasNextLine()) {
                 String[] values = scanner.nextLine().split(",");
@@ -95,7 +95,7 @@ public class LogIn {
                     } else {
                         // If the element is equal to the user email.
                         if (element.equals(userEmail)) {
-                            return Integer.parseInt(values[1]);
+                            return Double.parseDouble(values[1]);
                         }
 
                         continue;

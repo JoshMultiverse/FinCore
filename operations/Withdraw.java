@@ -16,7 +16,7 @@ public class Withdraw {
     }
 
     // Entry method to call upon the other methods
-    public void displayWithdrawText(Scanner scanner) {
+    public static void displayWithdrawText(Scanner scanner) {
         if (FinCore.App.returnToMainMenu) {
             return;
         }
@@ -79,7 +79,7 @@ public class Withdraw {
         balanceAfterTransaction = newBalance;
     }
 
-    public double returnBalanceAfterTransaction() {
+    public static double returnBalanceAfterTransaction() {
         return balanceAfterTransaction;
     }
 }

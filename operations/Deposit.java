@@ -16,7 +16,7 @@ public class Deposit {
     }
 
     // Entry method to call upon the other methods
-    public void displayDepositText(Scanner scanner) {
+    public static void displayDepositText(Scanner scanner) {
         if (FinCore.App.returnToMainMenu) {
             return;
         }
@@ -64,7 +64,7 @@ public class Deposit {
         balanceAfterTransaction = newBalance;
     }
 
-    public double returnBalanceAfterTransaction() {
+    public static double returnBalanceAfterTransaction() {
         return balanceAfterTransaction;
     }
 }

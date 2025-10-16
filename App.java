@@ -19,20 +19,22 @@ public class App {
             Please select an option:  """;
     public static String goodbyeMessage = "Thank you for using FinCore CLI Banking. Goodbye!";
     public static int userChoice;
-    public static double currentBalance = 1000;
+    public static double currentBalance;
     public static boolean returnToMainMenu = false;
     private static int passwordAttempts = 3;
 
-    // Create a withdraw instance
-    private static Withdraw withdrawInstance = new Withdraw(currentBalance);
+    // // Create a withdraw instance
+    // private static Withdraw withdrawInstance = new Withdraw(currentBalance);
 
-    // Create a new deposit instance
-    private static Deposit depositInstance = new Deposit(currentBalance);
+    // // Create a new deposit instance
+    // private static Deposit depositInstance = new Deposit(currentBalance);
 
     // Creating a log in instance
     private static LogIn logInInstance = new LogIn();
 
     private static Supporters supportersInstance = new Supporters();
+
+    private static FileEditor fileEditorInstance = new FileEditor();
 
     // Main function
     public static void main(String[] args) {
@@ -58,10 +60,10 @@ public class App {
         // Main menu loop
         while (!isExit) {
             // Gets the global userEmail variable from the log in instance.
-            currentBalance = logInInstance.getUserBalance(logInInstance.userEmail);
+            currentBalance = logInInstance.getUserBalance(LogIn.userEmail);
 
             // Print the menu out + current balance
-            IO.print("Welcome, " + logInInstance.userEmail + "! Your current balance is $" + currentBalance);
+            IO.print("Welcome, " + LogIn.userEmail + "! Your current balance is $" + currentBalance);
             IO.print(Menu);
 
             // If the input is a number
@@ -89,7 +91,9 @@ public class App {
                     callDepositClass(currentBalance, scanner);
                     // update the current balance
                     currentBalance = supportersInstance
-                            .returnNewBalance(depositInstance.returnBalanceAfterTransaction());
+                            .returnNewBalance(Deposit.returnBalanceAfterTransaction());
+
+                    fileEditorInstance.ChangeBalance(Double.toString(currentBalance), "deposit");
                     break;
                 }
 
@@ -99,7 +103,10 @@ public class App {
                     // Call withdraw
                     callWithdrawClass(currentBalance, scanner);
                     currentBalance = supportersInstance
-                            .returnNewBalance(withdrawInstance.returnBalanceAfterTransaction());
+                            .returnNewBalance(Withdraw.returnBalanceAfterTransaction());
+
+                    // Send to method to update the current balance in the userBalances file
+                    fileEditorInstance.ChangeBalance(Double.toString(currentBalance), "withdraw");
                     break;
                 }
 
@@ -117,13 +124,15 @@ public class App {
     }
 
     public static void callDepositClass(double currentBalance, Scanner scanner) {
+        new Deposit(currentBalance);
         // Call the entry function to the class
-        depositInstance.displayDepositText(scanner);
+        Deposit.displayDepositText(scanner);
     }
 
     public static void callWithdrawClass(double currentBalance, Scanner scanner) {
+        new Withdraw(currentBalance);
         // Call the entry method to the class
-        withdrawInstance.displayWithdrawText(scanner);
+        Withdraw.displayWithdrawText(scanner);
     }
 
     public static void callCheckBalanceClass(double currentBalance) {
