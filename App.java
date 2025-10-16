@@ -2,6 +2,9 @@ package FinCore;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import FinCore.helpers.*;
+import FinCore.operations.*;
+import FinCore.log_in.*;
 
 public class App {
     public static boolean isExit = false;
@@ -85,7 +88,8 @@ public class App {
                     // Call deposit class
                     callDepositClass(currentBalance, scanner);
                     // update the current balance
-                    currentBalance = supportersInstance.returnNewBalance(Deposit.balanceAfterTransaction);
+                    currentBalance = supportersInstance
+                            .returnNewBalance(depositInstance.returnBalanceAfterTransaction());
                     break;
                 }
 
@@ -94,7 +98,8 @@ public class App {
                 while (!returnToMainMenu) {
                     // Call withdraw
                     callWithdrawClass(currentBalance, scanner);
-                    currentBalance = supportersInstance.returnNewBalance(Withdraw.balanceAfterTransaction);
+                    currentBalance = supportersInstance
+                            .returnNewBalance(withdrawInstance.returnBalanceAfterTransaction());
                     break;
                 }
 
