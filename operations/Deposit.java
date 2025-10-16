@@ -13,6 +13,7 @@ public class Deposit extends Operations {
         super(currentBalance);
     }
 
+    @Override
     // Entry method to call upon the other methods
     public void displayText(Scanner scanner, double currentBalance) {
         if (FinCore.App.returnToMainMenu) {
@@ -50,6 +51,7 @@ public class Deposit extends Operations {
         }
     }
 
+    @Override
     // Method to subtract add two values from each other
     public void calculateNewBalance(double amountToDeposit, double currentBalance) {
         IO.println(currentBalance);
@@ -63,6 +65,7 @@ public class Deposit extends Operations {
         balanceAfterTransaction = newBalance;
     }
 
+    @Override
     // Method to return the new balance set after transaction
     public double returnBalanceAfterTransaction() {
         IO.println(balanceAfterTransaction);

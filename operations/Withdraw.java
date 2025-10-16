@@ -13,6 +13,7 @@ public class Withdraw extends Operations {
         super(currentBalance);
     }
 
+    @Override
     // Entry method to call upon the other methods
     public void displayText(Scanner scanner, double currentBalance) {
         if (FinCore.App.returnToMainMenu) {
@@ -60,6 +61,7 @@ public class Withdraw extends Operations {
         }
     }
 
+    @Override
     // Method to subtract the two values from each other
     public void calculateNewBalance(double amountToWithdraw, double currentBalance) {
         printNewBalance(currentBalance - amountToWithdraw, amountToWithdraw, currentBalance);
@@ -72,6 +74,7 @@ public class Withdraw extends Operations {
         balanceAfterTransaction = newBalance;
     }
 
+    @Override
     // Method to return the new balance set after transaction
     public double returnBalanceAfterTransaction() {
         return balanceAfterTransaction;
