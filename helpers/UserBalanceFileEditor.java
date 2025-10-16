@@ -14,6 +14,7 @@ public class UserBalanceFileEditor {
         this.LineCounter = resetLineCounter;
     }
 
+    // Method to intiliase the balance to 0 when a user creates an account
     public void IntialiseUserAccount(String email, float startingBalance) {
         try (FileWriter userBalanceFile = new FileWriter("csv/userBalances.csv", true)) {
             userBalanceFile.write(email + "," + startingBalance + "\n");
@@ -22,7 +23,8 @@ public class UserBalanceFileEditor {
         }
     }
 
-    public void ChangeBalance(String currentBalance, String operation) {
+    // Method to change the balance whenever a user makes a change to it
+    public void ChangeBalance(String currentBalance) {
         List<String> linesInFile = new ArrayList<>();
         LineCounter = 0;
 
@@ -37,7 +39,6 @@ public class UserBalanceFileEditor {
 
                 // Incrment the line counter
                 LineCounter += 1;
-                IO.println(currentLine);
 
                 // Check if the email is in the first field in the CSV file
                 String[] currentLineParts = currentLine.split("\\s{0,},\\s{0,}");
@@ -48,11 +49,7 @@ public class UserBalanceFileEditor {
                     double doubleTypeBalance = Double.parseDouble(currentLineParts[1]);
 
                     // Set the balance to the current balance
-                    if (operation.equals("deposit")) {
-                        doubleTypeBalance = Double.parseDouble(currentBalance);
-                    } else {
-                        doubleTypeBalance = Double.parseDouble(currentBalance);
-                    }
+                    doubleTypeBalance = Double.parseDouble(currentBalance);
 
                     // Update the record in the CSV file
                     try {
@@ -74,7 +71,6 @@ public class UserBalanceFileEditor {
     }
 
     public void WriteLinesBackIntoFile(String lineToWrite, List<String> linesInFile) throws IOException {
-        IO.println(LineCounter);
         linesInFile.set(LineCounter - 1, lineToWrite);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("csv/userBalances.csv", false))) {

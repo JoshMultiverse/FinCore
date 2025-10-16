@@ -1,10 +1,9 @@
 package FinCore;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import FinCore.helpers.*;
 import FinCore.operations.*;
 import FinCore.log_in.*;
+import java.util.*;
 
 public class App {
     public static boolean isExit = false;
@@ -23,17 +22,8 @@ public class App {
     public static boolean returnToMainMenu = false;
     private static int passwordAttempts = 3;
 
-    // // Create a withdraw instance
-    // private static Withdraw withdrawInstance = new Withdraw(currentBalance);
-
-    // // Create a new deposit instance
-    // private static Deposit depositInstance = new Deposit(currentBalance);
-
     // Creating a log in instance
     private static LogIn logInInstance = new LogIn();
-
-    private static Supporters supportersInstance = new Supporters();
-
     private static UserBalanceFileEditor fileEditorInstance = new UserBalanceFileEditor(0);
 
     // Main function
@@ -85,54 +75,53 @@ public class App {
     // Function to get the option selected by the user
     static void setBankOperations(int userChoice, Scanner scanner) {
         switch (userChoice) {
-            case 1:
-                while (!returnToMainMenu) {
-                    // Call deposit class
-                    callDepositClass(currentBalance, scanner);
-                    // update the current balance
-                    currentBalance = supportersInstance
-                            .returnNewBalance(Deposit.returnBalanceAfterTransaction());
-
-                    fileEditorInstance.ChangeBalance(Double.toString(currentBalance), "deposit");
-                    break;
-                }
-
-                break;
-            case 2:
-                while (!returnToMainMenu) {
-                    // Call withdraw
-                    callWithdrawClass(currentBalance, scanner);
-                    currentBalance = supportersInstance
-                            .returnNewBalance(Withdraw.returnBalanceAfterTransaction());
-
-                    // Send to method to update the current balance in the userBalances file
-                    fileEditorInstance.ChangeBalance(Double.toString(currentBalance), "withdraw");
-                    break;
-                }
-
-                break;
             case 3:
-                // Call check balance
-                callCheckBalanceClass(currentBalance);
+                // Display the current balance
+                callCheckBalanceClass(userChoice);
                 break;
             case 4:
+                // Break the loop
                 isExit = true;
                 break;
             default:
-                break;
+                // While the user hasnt returned to the main menu
+                while (!returnToMainMenu) {
+                    List<Operations> operations = new ArrayList<>(); // List for the operation sub classes
+                    List<Object[]> operationsObjectList = new ArrayList<>(); // List for the operation objects
+                    int counter = 0;
+
+                    // Create my two operation instances
+                    Operations depositInstance = new Deposit(currentBalance);
+                    Operations withdrawInstance = new Withdraw(currentBalance);
+
+                    // Add them to the operations lists
+                    operations.add(depositInstance);
+                    operations.add(withdrawInstance);
+
+                    // Create objects for the operations - adding the counter on as an identifier
+                    for (Operations operation : operations) {
+                        counter += 1;
+                        operationsObjectList.add(new Object[] { counter, operation });
+                    }
+
+                    // Match if each object in the list is equal to the user choice, if so, then
+                    // call the entry method (POLYMORPHISM)
+                    for (Object[] operationObject : operationsObjectList) {
+                        if ((int) operationObject[0] == userChoice) {
+                            // Cast the object to the operations data type
+                            Operations operation = (Operations) operationObject[1];
+                            operation.displayText(scanner, currentBalance); // Polymorphism
+                            // Set the current balance to the new value
+                            currentBalance = operation.returnBalanceAfterTransaction();
+                            // Overwrite the 'userBalances.csv' file to the new balance.
+                            fileEditorInstance
+                                    .ChangeBalance(Double.toString(operation.returnBalanceAfterTransaction()));
+                        }
+                    }
+                    break;
+                }
         }
-    }
 
-    public static void callDepositClass(double currentBalance, Scanner scanner) {
-        new Deposit(currentBalance);
-        // Call the entry function to the class
-        Deposit.displayDepositText(scanner);
-    }
-
-    public static void callWithdrawClass(double currentBalance, Scanner scanner) {
-        new Withdraw(currentBalance);
-        // Call the entry method to the class
-        Withdraw.displayWithdrawText(scanner);
     }
 
     public static void callCheckBalanceClass(double currentBalance) {

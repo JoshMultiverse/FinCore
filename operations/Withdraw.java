@@ -4,19 +4,17 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import FinCore.helpers.*;
 
-public class Withdraw {
+public class Withdraw extends Operations {
     // Intialising global variables
-    protected static double amountToWithdraw;
-    protected static double balanceAfterTransaction;
-    protected static double currentBalance;
     public static Supporters supportersInstance = new Supporters();
+    private static double balanceAfterTransaction = 0;
 
     public Withdraw(double currentBalance) {
-        Withdraw.currentBalance = currentBalance;
+        super(currentBalance);
     }
 
     // Entry method to call upon the other methods
-    public static void displayWithdrawText(Scanner scanner) {
+    public void displayText(Scanner scanner, double currentBalance) {
         if (FinCore.App.returnToMainMenu) {
             return;
         }
@@ -32,7 +30,7 @@ public class Withdraw {
                 scanner.nextLine();
 
                 IO.println("You cannot withdraw a negative value! Please try again!");
-                displayWithdrawText(scanner);
+                displayText(scanner, currentBalance);
                 return;
             }
 
@@ -42,12 +40,12 @@ public class Withdraw {
                 scanner.nextLine();
 
                 IO.println("You cannot withdraw more than your current balance!");
-                displayWithdrawText(scanner);
+                displayText(scanner, currentBalance);
                 return;
             }
 
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
-            calculateNewBalance(supportersInstance.truncateTo2DP(amountToWithdraw));
+            calculateNewBalance(supportersInstance.truncateTo2DP(amountToWithdraw), currentBalance);
         } catch (InputMismatchException eInputMismatchException) {
             if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
                 FinCore.App.returnToMainMenu = true;
@@ -57,29 +55,25 @@ public class Withdraw {
 
                 // Call function recursively until the right input is reached
                 IO.println("Invalid Input. Please Try Again");
-                displayWithdrawText(scanner);
+                displayText(scanner, currentBalance);
             }
         }
     }
 
-    // Method to truncate the user input to 2DP (Maximium allowed with money)
-    public static double truncateTo2DP() {
-        return Math.floor(amountToWithdraw * 100) / 100;
-    }
-
     // Method to subtract the two values from each other
-    public static void calculateNewBalance(double amountToWithdraw) {
-        printNewBalance(currentBalance - amountToWithdraw);
+    public void calculateNewBalance(double amountToWithdraw, double currentBalance) {
+        printNewBalance(currentBalance - amountToWithdraw, amountToWithdraw, currentBalance);
     }
 
     // Method to print the new balance
-    public static void printNewBalance(double newBalance) {
+    public static void printNewBalance(double newBalance, double amountToWithdraw, double currentBalance) {
         IO.println("Withdrawal successful! Your withdrew: $" + amountToWithdraw);
         IO.println("Your new balance is: $" + newBalance);
         balanceAfterTransaction = newBalance;
     }
 
-    public static double returnBalanceAfterTransaction() {
+    // Method to return the new balance set after transaction
+    public double returnBalanceAfterTransaction() {
         return balanceAfterTransaction;
     }
 }

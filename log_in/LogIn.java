@@ -12,6 +12,7 @@ public class LogIn {
     // Define global variables - dont want password being used outside of the class
     public static String userEmail;
     private static String userPassword;
+    private static String name;
 
     // Method to check that the user credentials are valid - entry method for this
     // class
@@ -27,7 +28,7 @@ public class LogIn {
             userPassword = scanner.nextLine();
 
             // If the password matches the one stored in the CSV file
-            if (doesPasswordMatchCurrent(userEmail, userPassword)) {
+            if (doesPasswordMatchCurrent(name, userEmail, userPassword)) {
                 // Verify log in success
                 return true;
             }
@@ -52,17 +53,17 @@ public class LogIn {
     }
 
     // Method which checks if the password entered matches the one stored
-    private static boolean doesPasswordMatchCurrent(String userEmail, String userPassword) {
+    private static boolean doesPasswordMatchCurrent(String name, String userEmail, String userPassword) {
         // Opens the CSV file, compares each line to the email and password entered. If
         // they match - return a true value.
         try (Scanner scanner = new Scanner(new File("csv/userCredentials.csv"))) {
-            String[] emailAndPassword = new String[] { userEmail, userPassword };
+            String[] emailAndPassword = new String[] { name, userEmail, userPassword };
 
             while (scanner.hasNextLine()) {
                 String[] values = scanner.nextLine().split(",");
 
-                if (values[0].equals(emailAndPassword[0])) {
-                    if (values[1].equals(emailAndPassword[1])) {
+                if (values[1].equals(emailAndPassword[1])) {
+                    if (values[2].equals(emailAndPassword[2])) {
                         return true;
                     }
                 }
@@ -88,7 +89,7 @@ public class LogIn {
                 String[] lineParts = line.split("\\s{0,},\\s{0,}");
 
                 // If the email element is equal to the email
-                if (lineParts[0].equals(userEmail)) {
+                if (lineParts[1].equals(userEmail)) {
                     return true;
                 }
             }
