@@ -17,7 +17,7 @@ public class UserBalanceFileEditor {
     // Method to intiliase the balance to 0 when a user creates an account
     public void IntialiseUserAccount(String email, float startingBalance) {
         try (FileWriter userBalanceFile = new FileWriter("csv/userBalances.csv", true)) {
-            userBalanceFile.write(email + "," + startingBalance + "\n");
+            userBalanceFile.write(email + "," + String.format("%.2f", startingBalance) + "\n");
         } catch (IOException eIoException) {
             eIoException.printStackTrace();
         }
@@ -48,12 +48,12 @@ public class UserBalanceFileEditor {
                     // Parse the balance as a double so I can change the updated balance
                     double doubleTypeBalance = Double.parseDouble(currentLineParts[1]);
 
-                    // Set the balance to the current balance
+                    // Set the balance to the current balance - parse to double as currently string
                     doubleTypeBalance = Double.parseDouble(currentBalance);
 
                     // Update the record in the CSV file
                     try {
-                        String lineToWrite = currentLineParts[0] + "," + Double.toString(doubleTypeBalance);
+                        String lineToWrite = currentLineParts[0] + "," + String.format("%.2f", doubleTypeBalance);
 
                         WriteLinesBackIntoFile(lineToWrite, linesInFile);
                         return;

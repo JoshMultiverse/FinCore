@@ -60,15 +60,16 @@ public class Deposit extends Operations {
 
     // Method to print the new balance and the amount deposited
     public static void printNewBalance(double newBalance, double amountToDeposit, double currentBalance) {
-        IO.println("Deposit successful! You deposited: $" + amountToDeposit);
-        IO.println("Your new balance is: $" + newBalance);
+        String amountToDepositFomatted = String.format("Deposit successful! You deposited: $%.2f", amountToDeposit);
+        String newBalanceFormatted = String.format("Your new balance is: $%.2f", newBalance);
+        IO.println(amountToDepositFomatted);
+        IO.println(newBalanceFormatted);
         balanceAfterTransaction = newBalance;
     }
 
     @Override
     // Method to return the new balance set after transaction
     public double returnBalanceAfterTransaction() {
-        IO.println(balanceAfterTransaction);
         return balanceAfterTransaction;
     }
 }

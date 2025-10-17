@@ -53,7 +53,8 @@ public class App {
             currentBalance = logInInstance.getUserBalance(LogIn.userEmail);
 
             // Print the menu out + current balance
-            IO.print("Welcome, " + LogIn.userEmail + "! Your current balance is $" + currentBalance);
+            IO.print("Welcome, " + logInInstance.getName() + "! Your current balance is $"
+                    + String.format("%.2f", currentBalance));
             IO.print(Menu);
 
             // If the input is a number

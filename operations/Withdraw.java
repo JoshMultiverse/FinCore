@@ -69,8 +69,12 @@ public class Withdraw extends Operations {
 
     // Method to print the new balance
     public static void printNewBalance(double newBalance, double amountToWithdraw, double currentBalance) {
-        IO.println("Withdrawal successful! Your withdrew: $" + amountToWithdraw);
-        IO.println("Your new balance is: $" + newBalance);
+        String amountToWithdrawFormatted = String.format("Withdrawal successful! Your withdrew: $%.2f",
+                amountToWithdraw);
+        String newBalanceFormatted = String.format("Your new balance is: $%.2f", newBalance);
+
+        IO.println("Withdrawal successful! Your withdrew: $" + amountToWithdrawFormatted);
+        IO.println("Your new balance is: $" + newBalanceFormatted);
         balanceAfterTransaction = newBalance;
     }
 
