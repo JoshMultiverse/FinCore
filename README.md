@@ -67,7 +67,7 @@ Check your environment variables
 FinCore Main Menu:
 
 For the menu, I have included 4 different options that the user can take, These are listed in the bullet points below:
-=======
+
 FinCore Main Menu 
 For the menu, I have included 4 different options that the user can take, These are listed in  the bullet points below:
 >>>>>>> 9101a26453ed4ac55563ecf00cc2f9bc8ddb3b45
