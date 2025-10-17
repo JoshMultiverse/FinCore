@@ -130,7 +130,7 @@ Screenshot 2025-10-09 123517
 As you can see in this method, I have decided to use a switch here. This because when there is more than 3 more possible options that it can be, it is a lot more maintainable to use a switch than something like an elif statement for example (S1).
 
 Each case in the switch refers to every possible input that the user could have entered. For cases 1-3, I have linked each case to a method which will call each of the respective methods, which will perform the action set out in the menu. Case 4 is slightly different. It thanks the user for using the service and sets a variable called isExit to true. This is to break out of the while loop which we saw at the beginning of this section.
-=======
+
 
 
 What it looks like
