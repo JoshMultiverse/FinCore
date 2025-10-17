@@ -77,7 +77,7 @@ public class LogIn {
     }
 
     // Method which scans through the users CSV file and checks if the email exists.
-    private static boolean doesEmailExist(String userEmail) {
+    public static boolean doesEmailExist(String userEmail) {
         // Try and open the file for the role that the user has chosen to log in as
         try (Scanner scanner = new Scanner(new File("csv/userCredentials.csv"))) {
             // Go through all of the lines in the file to check if the email exists on one

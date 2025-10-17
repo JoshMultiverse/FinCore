@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import FinCore.helpers.UserBalanceFileEditor;
 import FinCore.helpers.UserCredentialFileEditor;
+import FinCore.log_in.*;
 
 // Class to get the user to sign up
 public class SignUp {
@@ -22,6 +23,15 @@ public class SignUp {
 
                 IO.println("Please enter your email address");
                 userEmailToBe = scanner.nextLine();
+
+                // Check if emaial already exists
+                if (doesEmailExist(userEmailToBe)) {
+                    // Create Log In instance
+                    LogIn logInInstance = new LogIn();
+
+                    // Call the CheckUserCredentials method
+                    logInInstance.checkUserCredentials(scanner);
+                }
 
                 IO.println("Please enter a password");
                 passwordToBe = scanner.nextLine();
@@ -71,5 +81,10 @@ public class SignUp {
     // Method which returns if the password is equal to the most recent one entered.
     public boolean doesPasswordMatch(String passwordToCompare) {
         return passwordToBe.equals(passwordToCompare);
+    }
+
+    public boolean doesEmailExist(String emailToCheck) {
+        // Call the method created in the LogIn.java file to do this
+        return LogIn.doesEmailExist(emailToCheck);
     }
 }

@@ -35,17 +35,20 @@ public class App {
         // Try to log user in - limited to 3 attempts
         while (counter < passwordAttempts) {
             boolean areCredentialsCorrect = logInInstance.checkUserCredentials(scanner);
+            IO.println(areCredentialsCorrect);
 
             // If their credentials are correct, break outside of the loop
             if (areCredentialsCorrect) {
                 break;
+            } else {
+                // Set the isExit variable so that if more than 3 attempts were made, the
+                // program terminates.
+                isExit = compareCounterToAttemptsMade(counter);
             }
+
             // Increment the counter when the user gets uses a log in attempt
             counter += 1;
         }
-        // Set the isExit variable so that if more than 3 attempts were made, the
-        // program terminates.
-        isExit = compareCounterToAttemptsMade(counter);
 
         // Main menu loop
         while (!isExit) {
