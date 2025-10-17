@@ -56,7 +56,7 @@ public class SignUp {
 
         // Intialise a starting balance
         try {
-            UserBalanceFileEditor userBalanceFileEditorInstance = new UserBalanceFileEditor(0);
+            UserBalanceFileEditor userBalanceFileEditorInstance = new UserBalanceFileEditor(0, new LogIn());
             userBalanceFileEditorInstance.IntialiseUserAccount(userEmailToBe, 0);
         } catch (Exception e) {
             e.printStackTrace();

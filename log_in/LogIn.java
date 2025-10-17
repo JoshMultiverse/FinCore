@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 // Public class used to log people in
 public class LogIn {
     // Define global variables - dont want password being used outside of the class
-    public static String userEmail;
+    private static String userEmail;
     private static String userPassword;
     private static String name = "";
 
@@ -19,7 +19,7 @@ public class LogIn {
     public boolean checkUserCredentials(Scanner scanner) {
         // Get the user's email
         IO.print("Please enter your email: ");
-        userEmail = scanner.nextLine();
+        setEmail(scanner.nextLine());
 
         // Check if their email exists in the CSV file
         if (doesEmailExist(userEmail)) {
@@ -153,5 +153,13 @@ public class LogIn {
 
     public String getName() {
         return name;
+    }
+
+    public static void setEmail(String newEmail) {
+        userEmail = newEmail;
+    }
+
+    public String getEmail() {
+        return userEmail;
     }
 }

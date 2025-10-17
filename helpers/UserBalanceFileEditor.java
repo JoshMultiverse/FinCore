@@ -9,9 +9,11 @@ import java.util.*;
 public class UserBalanceFileEditor {
     private String currentLine;
     private int LineCounter;
+    private LogIn logInInstance;
 
-    public UserBalanceFileEditor(int resetLineCounter) {
+    public UserBalanceFileEditor(int resetLineCounter, LogIn logInInstance) {
         this.LineCounter = resetLineCounter;
+        this.logInInstance = logInInstance;
     }
 
     // Method to intiliase the balance to 0 when a user creates an account
@@ -44,7 +46,7 @@ public class UserBalanceFileEditor {
                 String[] currentLineParts = currentLine.split("\\s{0,},\\s{0,}");
 
                 // If the email element is equal to the email
-                if (currentLineParts[0].equals(LogIn.userEmail)) {
+                if (currentLineParts[0].equals(logInInstance.getEmail())) {
                     // Parse the balance as a double so I can change the updated balance
                     double doubleTypeBalance = Double.parseDouble(currentLineParts[1]);
 

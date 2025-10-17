@@ -24,7 +24,7 @@ public class App {
 
     // Creating a log in instance
     private static LogIn logInInstance = new LogIn();
-    private static UserBalanceFileEditor fileEditorInstance = new UserBalanceFileEditor(0);
+    private static UserBalanceFileEditor fileEditorInstance = new UserBalanceFileEditor(0, logInInstance);
 
     // Main function
     public static void main(String[] args) {
@@ -53,7 +53,7 @@ public class App {
         // Main menu loop
         while (!isExit) {
             // Gets the global userEmail variable from the log in instance.
-            currentBalance = logInInstance.getUserBalance(LogIn.userEmail);
+            currentBalance = logInInstance.getUserBalance(logInInstance.getEmail());
 
             // Print the menu out + current balance
             IO.print("Welcome, " + logInInstance.getName() + "! Your current balance is $"
