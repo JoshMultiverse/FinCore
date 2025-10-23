@@ -19,6 +19,7 @@ public class App {
     public static String goodbyeMessage = "Thank you for using FinCore CLI Banking. Goodbye!";
     public static int userChoice;
     public static double currentBalance;
+    public static double oldBalance;
     public static boolean returnToMainMenu = false;
     private static int passwordAttempts = 3;
     public static String directoryPath = "FinCore/app/src/main/java/org";
@@ -94,6 +95,7 @@ public class App {
                     List<Operations> operations = new ArrayList<>(); // List for the operation sub classes
                     List<Object[]> operationsObjectList = new ArrayList<>(); // List for the operation objects
                     int counter = 0;
+                    oldBalance = currentBalance;
 
                     // Create my two operation instances
                     Operations depositInstance = new Deposit(currentBalance);
@@ -123,12 +125,32 @@ public class App {
                                     .ChangeBalance(Double.toString(operation.returnBalanceAfterTransaction()));
                         }
                     }
+
+                    // Call method to get the transaction history
+                    performOperationOnLinkedList();
                     break;
                 }
         }
+    }
 
-        // Call method to get the transaction history
+    public static void performOperationOnLinkedList() {
+        // Initialise the class with the email
+        new TransactionHistory(logInInstance.getEmail());
 
+        // When hashmap has been loaded, does the user already exist?
+        if (!TransactionHistory.getIfUserHasTransactionHistory()) {
+            TransactionHistory.createNewKeyValue(buildTransactionArray());
+        } else {
+            TransactionHistory.addToValueLinkedList(buildTransactionArray());
+        }
+    }
+
+    public static String[] buildTransactionArray() {
+        return new String[] {
+                userChoice == 1 ? "deposit" : "withdraw",
+                String.valueOf(oldBalance),
+                String.valueOf(currentBalance)
+        };
     }
 
     public static void callCheckBalanceClass(double currentBalance) {
