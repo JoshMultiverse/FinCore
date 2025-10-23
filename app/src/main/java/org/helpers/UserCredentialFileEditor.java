@@ -15,7 +15,8 @@ public class UserCredentialFileEditor {
     }
 
     public boolean AppendUserCredentialsToFile() throws IOException {
-        try (FileWriter userCredentialsWriter = new FileWriter("csv/userCredentials.csv", true)) {
+        try (FileWriter userCredentialsWriter = new FileWriter(org.App.directoryPath + "csv/userCredentials.csv",
+                true)) {
             userCredentialsWriter.write(firstName + "," + userEmail + "," + userPassword + "\n");
 
             return true;
