@@ -6,8 +6,12 @@ import org.operations.*;
 import java.util.*;
 
 public class App {
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
     public static boolean isExit = false;
-    public static String Menu = """
+    public static String Menu = ANSI_BLUE + """
             \n---------------Welcome to FinCore!----------------
                 1: Deposit
                 2: Withdraw
@@ -16,7 +20,7 @@ public class App {
                 5: Exit
             ----------------------------------------------------
 
-            Please select an option:  """;
+            Please select an option:  """ + ANSI_RESET;
     public static String goodbyeMessage = "Thank you for using FinCore CLI Banking. Goodbye!";
     public static int userChoice;
     public static double currentBalance;
@@ -59,8 +63,8 @@ public class App {
             currentBalance = logInInstance.getUserBalance(logInInstance.getEmail());
 
             // Print the menu out + current balance
-            IO.print("Welcome, " + logInInstance.getName() + "! Your current balance is $"
-                    + String.format("%.2f", currentBalance));
+            IO.print(ANSI_GREEN + "Welcome, " + logInInstance.getName() + "! Your current balance is $"
+                    + String.format("%.2f", currentBalance) + ANSI_RESET);
             IO.print(Menu);
 
             // If the input is a number
@@ -179,7 +183,7 @@ public class App {
             // This code will run if the user enters letters/symbols etc.
             scanner.nextLine();
 
-            IO.println("Please enter a number");
+            IO.println(ANSI_RED + "Please enter a number" + ANSI_RESET);
             IO.println(Menu);
             return checkInputIsValid(scanner); // Call the function recursively
         }
@@ -189,7 +193,8 @@ public class App {
     public static boolean checkInputIsInRange(int userChoice, Scanner scanner) {
         // Use a while loop to constantly check if the value is under 1 or over 4
         while (userChoice < 1 || userChoice > 5) {
-            IO.println("That input is invalid, please enter a value between 1 and 5 inclusive.");
+            IO.println(
+                    ANSI_RED + "That input is invalid, please enter a value between 1 and 5 inclusive." + ANSI_RESET);
             IO.println(Menu);
             userChoice = scanner.nextInt();
         }

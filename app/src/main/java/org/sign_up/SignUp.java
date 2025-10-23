@@ -14,14 +14,17 @@ public class SignUp {
     private String passwordToBe = "";
     private String name = "";
     private int correctPasswordsEntered = 1;
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_BLUE = "\u001B[34m";
 
     public boolean signUpForm(Scanner scanner) throws InputMismatchException {
         while (userEmailToBe.isEmpty() && passwordToBe.isEmpty() & name.isEmpty()) {
             try {
-                IO.println("Please enter your name");
+                IO.println(ANSI_BLUE + "Please enter your name" + ANSI_RESET);
                 name = scanner.nextLine();
 
-                IO.println("Please enter your email address");
+                IO.println(ANSI_BLUE + "Please enter your email address" + ANSI_RESET);
                 userEmailToBe = scanner.nextLine();
 
                 // Check if emaial already exists
@@ -33,19 +36,19 @@ public class SignUp {
                     logInInstance.checkUserCredentials(scanner);
                 }
 
-                IO.println("Please enter a password");
+                IO.println(ANSI_BLUE + "Please enter a password" + ANSI_RESET);
                 passwordToBe = scanner.nextLine();
 
                 // Ensuring that they entered the password which they intended to.
                 while (correctPasswordsEntered != 2) {
-                    IO.print("Please enter your password again: ");
+                    IO.print(ANSI_BLUE + "Please enter your password again: " + ANSI_RESET);
                     String passwordToCompare = scanner.nextLine();
 
                     // Get the user to confirm their password
                     if (doesPasswordMatch(passwordToCompare)) {
                         correctPasswordsEntered += 1;
                     } else {
-                        IO.println("That was not the same as the previous password!");
+                        IO.println(ANSI_RED + "That was not the same as the previous password!" + ANSI_RESET);
                     }
                 }
 

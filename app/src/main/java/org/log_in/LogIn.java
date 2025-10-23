@@ -13,18 +13,21 @@ public class LogIn {
     private static String userEmail;
     private static String userPassword;
     private static String name = "";
+    private static final String ANSI_RESET = "\u001B[0m";
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_BLUE = "\u001B[34m";
 
     // Method to check that the user credentials are valid - entry method for this
     // class
     public boolean checkUserCredentials(Scanner scanner) {
         // Get the user's email
-        IO.print("Please enter your email: ");
+        IO.print(ANSI_BLUE + "Please enter your email: " + ANSI_RESET);
         setEmail(scanner.nextLine());
 
         // Check if their email exists in the CSV file
         if (doesEmailExist(userEmail)) {
             // Get the password
-            IO.print("Please enter your password: ");
+            IO.print(ANSI_BLUE + "Please enter your password: " + ANSI_RESET);
             userPassword = scanner.nextLine();
 
             // If the password matches the one stored in the CSV file
@@ -33,7 +36,7 @@ public class LogIn {
                 return true;
             }
             // Indicate the password was not correct + return unsucessful sign in
-            IO.println("Password not correct");
+            IO.println(ANSI_RED + "Password not correct" + ANSI_RESET);
             return false;
         }
         // Indicate the email was not correct + return unsucessful sign in
@@ -114,7 +117,7 @@ public class LogIn {
                 return false;
             default:
                 // Call recursively if the user does enter y or n
-                IO.println("Please enter y or n");
+                IO.println(ANSI_RED + "Please enter y or n" + ANSI_RESET);
                 return doesUserWantToSignUp(scanner);
         }
     }

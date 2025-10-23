@@ -19,6 +19,10 @@ public class TransactionHistory {
     private static boolean doesUserHaveTransactionHistory = false;
     private static int lineCounter = 0;
     private static String lineToWrite = "";
+    // Intialising global variables
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_RESET = "\u001B[0m";
 
     public TransactionHistory(String email) {
         userEmail = email;
@@ -80,8 +84,8 @@ public class TransactionHistory {
 
         // Try add a new key + value to the file
         try (FileWriter fileWriter = new FileWriter(org.App.directoryPath + "/csv/hashmapDetails.csv", true)) {
-            fileWriter.write(userEmail + ";" + transactionArray[0] + ":" + transactionArray[1] + ":"
-                    + transactionArray[2] + "\n");
+            fileWriter.write(userEmail + ";" + transactionArray[0] + "," + transactionArray[1] + ","
+                    + transactionArray[2] + ":" + "\n");
         } catch (IOException e) {
             System.out.println("Appending to back of file failed!");
         }
@@ -160,9 +164,10 @@ public class TransactionHistory {
         // [deposit] ,[207.74], [208.74]
         for (String transaction : transactions) {
             String[] transactionComponents = transaction.split(",");
-            System.out.println("Transaction Type: " + transactionComponents[0] + "\n" +
+            System.out.println((transactionComponents[0].equals("deposit") ? ANSI_GREEN : ANSI_RED)
+                    + "Transaction Type: " + transactionComponents[0] + "\n" +
                     "Old Balance: $" + transactionComponents[1] + "\n" +
-                    "New Balance: $" + transactionComponents[2] + "\n");
+                    "New Balance: $" + transactionComponents[2] + "\n" + ANSI_RESET);
             System.out.println("-------------------------");
         }
     }
