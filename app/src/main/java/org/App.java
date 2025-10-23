@@ -127,6 +127,8 @@ public class App {
                 }
         }
 
+        // Call method to get the transaction history
+
     }
 
     public static void callCheckBalanceClass(double currentBalance) {
