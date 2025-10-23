@@ -18,7 +18,7 @@ public class UserBalanceFileEditor {
 
     // Method to intiliase the balance to 0 when a user creates an account
     public void IntialiseUserAccount(String email, float startingBalance) {
-        try (FileWriter userBalanceFile = new FileWriter(org.App.directoryPath + "csv/userBalances.csv", true)) {
+        try (FileWriter userBalanceFile = new FileWriter(org.App.directoryPath + "/csv/userBalances.csv", true)) {
             userBalanceFile.write(email + "," + String.format("%.2f", startingBalance) + "\n");
         } catch (IOException eIoException) {
             eIoException.printStackTrace();
@@ -31,7 +31,7 @@ public class UserBalanceFileEditor {
         LineCounter = 0;
 
         // Refresh the list
-        try (Scanner scanner = new Scanner(new File(org.App.directoryPath + "csv/userBalances.csv"))) {
+        try (Scanner scanner = new Scanner(new File(org.App.directoryPath + "/csv/userBalances.csv"))) {
             while (scanner.hasNextLine()) {
                 // Set the currentLine variable to the new line
                 currentLine = scanner.nextLine();
@@ -76,7 +76,7 @@ public class UserBalanceFileEditor {
         linesInFile.set(LineCounter - 1, lineToWrite);
 
         try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter(org.App.directoryPath + "csv/userBalances.csv", false))) {
+                new FileWriter(org.App.directoryPath + "/csv/userBalances.csv", false))) {
             for (String line : linesInFile) {
                 writer.write(line);
                 writer.newLine();
