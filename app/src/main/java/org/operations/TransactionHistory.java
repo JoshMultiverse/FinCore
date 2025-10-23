@@ -50,8 +50,6 @@ public class TransactionHistory {
                     transactionHistory.put(currentLineSplit[0], buildLinkedList(currentLineSplit[1].split(":")));
                 }
             }
-
-            System.out.println(transactionHistory);
         } catch (FileNotFoundException e) {
             System.out.println("The intended file was not found in this directory peth: " + org.App.directoryPath);
         }
@@ -115,14 +113,14 @@ public class TransactionHistory {
                     LinkedList<String> targetLinkedList = transactionHistory.get(userEmail);
 
                     // Add the new object into the LL
-                    targetLinkedList.add(transactionArray[0] + ":" + transactionArray[1] + ":"
-                            + transactionArray[2]);
+                    targetLinkedList.add(transactionArray[0] + "," + transactionArray[1] + ","
+                            + transactionArray[2] + ":");
 
                     // Format the string we want to write
                     lineToWrite = currentLineSplit[0] + ";" + targetLinkedList.toString()
                             .replace("[", "")
                             .replace("]", "")
-                            .replace(", ", ",");
+                            .replace(", ", ":");
                 }
             }
 
@@ -148,6 +146,24 @@ public class TransactionHistory {
             }
 
             writer.close();
+        }
+    }
+
+    public static void displayTransactionHistory() {
+        System.out.println("-------------------------");
+        // Fill the hash map with values
+        loadHashMapContents();
+
+        // [deposit,207.74,208.74] : [deposit,208.74,209.74] : [deposit,209.74,210.74]:
+        LinkedList<String> transactions = transactionHistory.get(userEmail);
+
+        // [deposit] ,[207.74], [208.74]
+        for (String transaction : transactions) {
+            String[] transactionComponents = transaction.split(",");
+            System.out.println("Transaction Type: " + transactionComponents[0] + "\n" +
+                    "Old Balance: $" + transactionComponents[1] + "\n" +
+                    "New Balance: $" + transactionComponents[2] + "\n");
+            System.out.println("-------------------------");
         }
     }
 }

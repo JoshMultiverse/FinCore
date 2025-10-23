@@ -12,7 +12,8 @@ public class App {
                 1: Deposit
                 2: Withdraw
                 3: Check Balance
-                4: Exit
+                4: Display Transaction History
+                5: Exit
             ----------------------------------------------------
 
             Please select an option:  """;
@@ -86,6 +87,11 @@ public class App {
                 callCheckBalanceClass(userChoice);
                 break;
             case 4:
+                new TransactionHistory(logInInstance.getEmail());
+                // Send to method to return their transaction history
+                TransactionHistory.displayTransactionHistory();
+                break;
+            case 5:
                 // Break the loop
                 isExit = true;
                 break;
@@ -126,14 +132,13 @@ public class App {
                         }
                     }
 
-                    // Call method to get the transaction history
-                    performOperationOnLinkedList();
+                    performOperationOnLinkedList(scanner);
                     break;
                 }
         }
     }
 
-    public static void performOperationOnLinkedList() {
+    public static void performOperationOnLinkedList(Scanner scanner) {
         // Initialise the class with the email
         new TransactionHistory(logInInstance.getEmail());
 
@@ -183,8 +188,8 @@ public class App {
     // Method to check that the input is within the desired range
     public static boolean checkInputIsInRange(int userChoice, Scanner scanner) {
         // Use a while loop to constantly check if the value is under 1 or over 4
-        while (userChoice < 1 || userChoice > 4) {
-            IO.println("That input is invalid, please enter a value between 1 and 4 inclusive.");
+        while (userChoice < 1 || userChoice > 5) {
+            IO.println("That input is invalid, please enter a value between 1 and 5 inclusive.");
             IO.println(Menu);
             userChoice = scanner.nextInt();
         }
