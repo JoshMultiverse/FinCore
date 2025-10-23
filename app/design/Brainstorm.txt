@@ -1,0 +1,4 @@
+Ideas for FinCore:
+- Create Different Types of Accounts (Savings/S&S)
+- Transfer feature between two Accounts
+- £50 bonus when given a referral code. 

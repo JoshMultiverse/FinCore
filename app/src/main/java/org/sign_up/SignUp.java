@@ -1,12 +1,12 @@
-package FinCore.sign_up;
+package org.sign_up;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import FinCore.helpers.UserBalanceFileEditor;
-import FinCore.helpers.UserCredentialFileEditor;
-import FinCore.log_in.*;
+import org.helpers.UserBalanceFileEditor;
+import org.helpers.UserCredentialFileEditor;
+import org.log_in.*;
 
 // Class to get the user to sign up
 public class SignUp {

@@ -1,8 +1,8 @@
-package FinCore.log_in;
+package org.log_in;
 
 import java.util.Scanner;
 
-import FinCore.sign_up.SignUp;
+import org.sign_up.SignUp;
 
 import java.io.File;
 import java.io.FileNotFoundException;

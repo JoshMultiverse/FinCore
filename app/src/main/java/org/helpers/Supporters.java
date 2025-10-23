@@ -1,4 +1,4 @@
-package FinCore.helpers;
+package org.helpers;
 
 public class Supporters {
     public boolean isReturnToMainMenu(String stringEntered) {

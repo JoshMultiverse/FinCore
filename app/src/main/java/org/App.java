@@ -1,8 +1,8 @@
-package FinCore;
+package org;
 
-import FinCore.helpers.*;
-import FinCore.operations.*;
-import FinCore.log_in.*;
+import org.helpers.*;
+import org.log_in.*;
+import org.operations.*;
 import java.util.*;
 
 public class App {

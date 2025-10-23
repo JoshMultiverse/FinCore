@@ -1,6 +1,6 @@
-package FinCore.helpers;
+package org.helpers;
 
-import FinCore.log_in.LogIn;
+import org.log_in.LogIn;
 
 import java.io.*;
 import java.util.*;

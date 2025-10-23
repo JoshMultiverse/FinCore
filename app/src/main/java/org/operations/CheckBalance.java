@@ -1,6 +1,6 @@
-package FinCore.operations;
+package org.operations;
 
-import FinCore.log_in.LogIn;
+import org.log_in.LogIn;
 
 public class CheckBalance {
     // Prints the current balance saved

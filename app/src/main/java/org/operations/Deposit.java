@@ -1,8 +1,8 @@
-package FinCore.operations;
+package org.operations;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import FinCore.helpers.*;
+import org.helpers.*;
 
 public class Deposit extends Operations {
     // Intialising global variables
@@ -16,7 +16,7 @@ public class Deposit extends Operations {
     @Override
     // Entry method to call upon the other methods
     public void displayText(Scanner scanner, double currentBalance) {
-        if (FinCore.App.returnToMainMenu) {
+        if (org.App.returnToMainMenu) {
             return;
         }
 
@@ -38,7 +38,7 @@ public class Deposit extends Operations {
             calculateNewBalance(supportersInstance.truncateTo2DP(amountToDeposit), currentBalance);
         } catch (InputMismatchException eInputMismatchException) {
             if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
-                FinCore.App.returnToMainMenu = true;
+                org.App.returnToMainMenu = true;
                 return;
             } else {
                 scanner.nextLine();

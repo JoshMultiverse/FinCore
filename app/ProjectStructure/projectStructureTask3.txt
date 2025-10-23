@@ -3,6 +3,9 @@ FinCore/
     |---- bin/
     |---- lib/
     |---- src/
+            |------ csv/
+                    |- userCredentials.csv
+                    |- userBalances.csv
             |- .gitignore
             |- README.md
             |- App.java
@@ -10,6 +13,8 @@ FinCore/
             |- CheckBalance.java
             |- Deposit.java
             |- Withdraw.java
+            |- LogIn.java
+            |- SignUp.java
 
             
 

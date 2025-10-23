@@ -1,8 +1,8 @@
-package FinCore.operations;
+package org.operations;
 
 import java.util.Scanner;
 
-import FinCore.helpers.Supporters;
+import org.helpers.Supporters;
 
 // My super class which will contain the abstract classes for the sub classes to use
 public abstract class Operations {
