@@ -144,13 +144,13 @@ public class App {
 
     public static void performOperationOnLinkedList(Scanner scanner) {
         // Initialise the class with the email
-        new TransactionHistory(logInInstance.getEmail());
+        TransactionHistory transactionHistoryInstance = new TransactionHistory(logInInstance.getEmail());
 
         // When hashmap has been loaded, does the user already exist?
         if (!TransactionHistory.getIfUserHasTransactionHistory()) {
-            TransactionHistory.createNewKeyValue(buildTransactionArray());
+            transactionHistoryInstance.createObject(buildTransactionArray());
         } else {
-            TransactionHistory.addToValueLinkedList(buildTransactionArray());
+            transactionHistoryInstance.readFile(logInInstance.getEmail());
         }
     }
 

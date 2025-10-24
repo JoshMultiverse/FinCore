@@ -11,8 +11,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.App;
+import org.interfaces.*;
+
 // Class to create a hashMap of the transaction history using the hashmapDetails.csv file
-public class TransactionHistory {
+public class TransactionHistory implements DataManager {
     // Attributes
     private static HashMap<String, LinkedList<String>> transactionHistory = new HashMap<String, LinkedList<String>>();
     private static String userEmail;
@@ -36,7 +39,7 @@ public class TransactionHistory {
             // Loop through the file and get the key + value and add to the hashmap
             while (scanner.hasNextLine()) {
                 lineCounter++;
-                String[] currentLineSplit = scanner.nextLine().split(";");
+                String[] currentLineSplit = scanner.nextLine().split(",");
 
                 if (lineCounter > 1) {
                     // Break the loop if the userEmail is found because do not need to add anymore
@@ -77,24 +80,37 @@ public class TransactionHistory {
         return doesUserHaveTransactionHistory;
     }
 
+    @Override
     // Method to check if the user has a new key value
-    public static void createNewKeyValue(String[] transactionArray) {
+    public void createObject(String[] transactionArray) {
         // Add to transaction history hashmap
         transactionHistory.put(userEmail, buildLinkedList(transactionArray));
 
         // Try add a new key + value to the file
         try (FileWriter fileWriter = new FileWriter(org.App.directoryPath + "/csv/hashmapDetails.csv", true)) {
-            fileWriter.write(userEmail + ";" + transactionArray[0] + "," + transactionArray[1] + ","
+            fileWriter.write(userEmail + "," + transactionArray[0] + ";" + transactionArray[1] + ";"
                     + transactionArray[2] + ":" + "\n");
         } catch (IOException e) {
             System.out.println("Appending to back of file failed!");
         }
     }
 
+    public String formatLineToWrite(String[] currentLineSplit, LinkedList<String> targetLinkedList) {
+        // Format the string we want to write
+        lineToWrite = currentLineSplit[0] + "," + targetLinkedList.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(", ", ":");
+
+        return lineToWrite;
+    }
+
+    @Override
     // Method to add the most recent transaction to the hashmap.
-    public static void addToValueLinkedList(String[] transactionArray) {
+    public void readFile(String userEmail) {
         lineCounter = 0;
         List<String> linesInFile = new ArrayList<>();
+        String[] transactionArray = App.buildTransactionArray();
 
         // Refresh the list
         try (Scanner scanner = new Scanner(new File(org.App.directoryPath + "/csv/hashmapDetails.csv"))) {
@@ -108,38 +124,38 @@ public class TransactionHistory {
                 // Incrment the line counter
                 lineCounter += 1;
 
-                String[] currentLineSplit = currentLine.split(";");
+                String[] currentLineSplit = currentLine.split(",");
+
+                System.out.println(currentLineSplit[0]);
 
                 // Get the email element from the linked list and change when that line is
                 // reached.
                 if (currentLineSplit[0].equals(userEmail)) {
-                    // Get the key (userEmail)
-                    LinkedList<String> targetLinkedList = transactionHistory.get(userEmail);
+                    System.out.println(true);
+                    try {
+                        // Get the key (userEmail)
+                        LinkedList<String> targetLinkedList = transactionHistory.get(userEmail);
 
-                    // Add the new object into the LL
-                    targetLinkedList.add(transactionArray[0] + "," + transactionArray[1] + ","
-                            + transactionArray[2] + ":");
+                        // Add the new object into the LL
+                        targetLinkedList.add(transactionArray[0] + ";" + transactionArray[1] + ";"
+                                + transactionArray[2] + ":");
 
-                    // Format the string we want to write
-                    lineToWrite = currentLineSplit[0] + ";" + targetLinkedList.toString()
-                            .replace("[", "")
-                            .replace("]", "")
-                            .replace(", ", ":");
+                        // Update the history by building the line to write
+                        updateHistory(formatLineToWrite(currentLineSplit, targetLinkedList), linesInFile);
+                        break;
+                    } finally {
+                        System.out.println("------------");
+                    }
                 }
-            }
-
-            try {
-                WriteLinesBackIntoFile(lineToWrite, linesInFile);
-            } catch (IOException e) {
-                System.out.println("Failed to write back into file.");
             }
         } catch (FileNotFoundException e) {
             System.out.println("File is not found in working directory");
         }
     }
 
+    @Override
     // Method to write the lines back into the file from the ArrayList
-    public static void WriteLinesBackIntoFile(String lineToWrite, List<String> linesInFile) throws IOException {
+    public void updateHistory(String lineToWrite, List<String> linesInFile) {
         linesInFile.set(lineCounter - 1, lineToWrite);
 
         try (BufferedWriter writer = new BufferedWriter(
@@ -150,6 +166,8 @@ public class TransactionHistory {
             }
 
             writer.close();
+        } catch (IOException e) {
+            System.out.println("Could not read the file");
         }
     }
 

@@ -1,2 +1,2 @@
-Email;History
-test@example.com;deposit,207.74,208.74:deposit,208.74,209.74:deposit,209.74,210.74:deposit,210.74,260.74:withdraw,162.74,161.74:withdraw,162.74,161.74:withdraw,161.74,151.74:
+Email,History
+test@example.com,deposit;207.74;208.74:deposit;208.74;209.74:deposit;209.74;210.74:deposit;163.74;164.74:deposit;164.74;165.74:deposit;165.74;166.74:

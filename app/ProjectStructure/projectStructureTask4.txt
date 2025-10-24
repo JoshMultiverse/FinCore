@@ -1,0 +1,28 @@
+FinCore/
+    |---- vscode/
+    |---- bin/
+    |---- lib/
+    |---- src/
+        |------ csv/
+                |- userCredentials.csv
+                |- userBalances.csv
+        |------ helpers/
+                |- Supporters.java
+                |- UserBalanceFileEditor.java
+                |- UserCredentialFileEditor.java
+        |------ interfaces/
+                |- DataManager.java
+        |------ log_in/
+                |- LogIn.java
+        |------ operations/
+                |- CheckBalance.java    
+                |- Deposit.java
+                |- Operations.java
+                |- Withdraw.java
+        |------ sign_up/
+                |- SignUp.java
+        |- App.java     
+        |- .gitignore
+        |- README.md
+
+
