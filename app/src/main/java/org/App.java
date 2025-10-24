@@ -132,7 +132,7 @@ public class App {
                             currentBalance = operation.returnBalanceAfterTransaction();
                             // Overwrite the 'userBalances.csv' file to the new balance.
                             fileEditorInstance
-                                    .ChangeBalance(Double.toString(operation.returnBalanceAfterTransaction()));
+                                    .readFile(Double.toString(operation.returnBalanceAfterTransaction()));
                         }
                     }
 

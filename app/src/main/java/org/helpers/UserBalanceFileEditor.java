@@ -4,9 +4,10 @@ import org.log_in.LogIn;
 
 import java.io.*;
 import java.util.*;
+import org.interfaces.*;
 
 // Class to handle all of my file operations which I need to do
-public class UserBalanceFileEditor {
+public class UserBalanceFileEditor implements DataManager {
     private String currentLine;
     private int LineCounter;
     private LogIn logInInstance;
@@ -17,16 +18,16 @@ public class UserBalanceFileEditor {
     }
 
     // Method to intiliase the balance to 0 when a user creates an account
-    public void IntialiseUserAccount(String email, float startingBalance) {
+    public void createObject(String[] newAccountArray) {
         try (FileWriter userBalanceFile = new FileWriter(org.App.directoryPath + "/csv/userBalances.csv", true)) {
-            userBalanceFile.write(email + "," + String.format("%.2f", startingBalance) + "\n");
+            userBalanceFile.write(newAccountArray[0] + "," + String.format("%.2f", newAccountArray[1]) + "\n");
         } catch (IOException eIoException) {
             eIoException.printStackTrace();
         }
     }
 
     // Method to change the balance whenever a user makes a change to it
-    public void ChangeBalance(String currentBalance) {
+    public void readFile(String currentBalance) {
         List<String> linesInFile = new ArrayList<>();
         LineCounter = 0;
 
@@ -57,10 +58,10 @@ public class UserBalanceFileEditor {
                     try {
                         String lineToWrite = currentLineParts[0] + "," + String.format("%.2f", doubleTypeBalance);
 
-                        WriteLinesBackIntoFile(lineToWrite, linesInFile);
+                        updateHistory(lineToWrite, linesInFile);
                         return;
-                    } catch (IOException eIOException) {
-                        throw new Error(eIOException);
+                    } finally {
+                        // No code to be ran
                     }
                 }
             }
@@ -72,7 +73,7 @@ public class UserBalanceFileEditor {
         }
     }
 
-    public void WriteLinesBackIntoFile(String lineToWrite, List<String> linesInFile) throws IOException {
+    public void updateHistory(String lineToWrite, List<String> linesInFile) {
         linesInFile.set(LineCounter - 1, lineToWrite);
 
         try (BufferedWriter writer = new BufferedWriter(
@@ -83,6 +84,8 @@ public class UserBalanceFileEditor {
             }
 
             writer.close();
+        } catch (IOException e) {
+            System.out.println("Error when updating the balance");
         }
     }
 }

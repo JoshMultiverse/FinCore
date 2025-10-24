@@ -60,25 +60,25 @@ public class SignUp {
         // Intialise a starting balance
         try {
             UserBalanceFileEditor userBalanceFileEditorInstance = new UserBalanceFileEditor(0, new LogIn());
-            userBalanceFileEditorInstance.IntialiseUserAccount(userEmailToBe, 0);
+            userBalanceFileEditorInstance.createObject(new String[] { userEmailToBe, "0" });
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Add the details to the userCredentials.csv file
         try {
-            return tryAddCredentialsToFile();
+            tryAddCredentialsToFile();
+            return true;
         } catch (IOException eIoException) {
             eIoException.printStackTrace();
             return false;
         }
     }
 
-    public boolean tryAddCredentialsToFile() throws IOException {
+    public void tryAddCredentialsToFile() throws IOException {
         // Add the details to the userCredentials.csv file
-        UserCredentialFileEditor userCredentialFileEditorIntance = new UserCredentialFileEditor(name,
-                userEmailToBe, passwordToBe);
-        return userCredentialFileEditorIntance.AppendUserCredentialsToFile();
+        UserCredentialFileEditor userCredentialFileEditorIntance = new UserCredentialFileEditor();
+        userCredentialFileEditorIntance.createObject(new String[] { name, userEmailToBe, passwordToBe });
     }
 
     // Method which returns if the password is equal to the most recent one entered.

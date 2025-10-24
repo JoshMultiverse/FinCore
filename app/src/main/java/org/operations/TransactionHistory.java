@@ -181,7 +181,7 @@ public class TransactionHistory implements DataManager {
 
         // [deposit] ,[207.74], [208.74]
         for (String transaction : transactions) {
-            String[] transactionComponents = transaction.split(",");
+            String[] transactionComponents = transaction.split(";");
             System.out.println((transactionComponents[0].equals("deposit") ? ANSI_GREEN : ANSI_RED)
                     + "Transaction Type: " + transactionComponents[0] + "\n" +
                     "Old Balance: $" + transactionComponents[1] + "\n" +
