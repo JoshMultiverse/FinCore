@@ -68,6 +68,7 @@ public class SignUp {
         // Add the details to the userCredentials.csv file
         try {
             tryAddCredentialsToFile();
+            LogIn.setEmail(userEmailToBe);
             return true;
         } catch (IOException eIoException) {
             eIoException.printStackTrace();

@@ -135,6 +135,7 @@ public class LogIn {
                     } else {
                         // If the element is equal to the user email.
                         if (element.equals(userEmail)) {
+                            System.out.println(true);
                             return Double.parseDouble(values[1]);
                         }
 
