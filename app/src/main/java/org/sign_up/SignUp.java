@@ -21,10 +21,10 @@ public class SignUp {
     public boolean signUpForm(Scanner scanner) throws InputMismatchException {
         while (userEmailToBe.isEmpty() && passwordToBe.isEmpty() & name.isEmpty()) {
             try {
-                IO.println(ANSI_BLUE + "Please enter your name" + ANSI_RESET);
+                IO.print(ANSI_BLUE + "Please enter your name: " + ANSI_RESET);
                 name = scanner.nextLine();
 
-                IO.println(ANSI_BLUE + "Please enter your email address" + ANSI_RESET);
+                IO.print(ANSI_BLUE + "Please enter your email address: " + ANSI_RESET);
                 userEmailToBe = scanner.nextLine();
 
                 // Check if emaial already exists
@@ -36,7 +36,7 @@ public class SignUp {
                     logInInstance.checkUserCredentials(scanner);
                 }
 
-                IO.println(ANSI_BLUE + "Please enter a password" + ANSI_RESET);
+                IO.print(ANSI_BLUE + "Please enter a password: " + ANSI_RESET);
                 passwordToBe = scanner.nextLine();
 
                 // Ensuring that they entered the password which they intended to.
