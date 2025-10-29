@@ -8,10 +8,10 @@ import org.operations.transfer.Transfer;
 import java.util.*;
 
 public class App {
-    private static final String ANSI_BLUE = "\u001B[34m";
-    private static final String ANSI_RESET = "\u001B[0m";
-    private static final String ANSI_RED = "\u001B[31m";
-    private static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
     public static boolean isExit = false;
     public static String Menu = ANSI_BLUE + """
             \n---------------Welcome to FinCore!----------------
