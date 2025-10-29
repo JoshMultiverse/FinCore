@@ -3,6 +3,8 @@ package org;
 import org.helpers.*;
 import org.log_in.*;
 import org.operations.*;
+import org.operations.transfer.Transfer;
+
 import java.util.*;
 
 public class App {
@@ -15,9 +17,10 @@ public class App {
             \n---------------Welcome to FinCore!----------------
                 1: Deposit
                 2: Withdraw
-                3: Check Balance
+                3: Transfer
                 4: Display Transaction History
-                5: Exit
+                5: Check Balance
+                6: Exit
             ----------------------------------------------------
 
             Please select an option:  """ + ANSI_RESET;
@@ -86,16 +89,16 @@ public class App {
     // Function to get the option selected by the user
     static void setBankOperations(int userChoice, Scanner scanner) {
         switch (userChoice) {
-            case 3:
-                // Display the current balance
-                callCheckBalanceClass(userChoice);
-                break;
             case 4:
                 new TransactionHistory(logInInstance.getEmail());
                 // Send to method to return their transaction history
                 TransactionHistory.displayTransactionHistory();
                 break;
             case 5:
+                // Display the current balance
+                callCheckBalanceClass(userChoice);
+                break;
+            case 6:
                 // Break the loop
                 isExit = true;
                 break;
@@ -110,10 +113,12 @@ public class App {
                     // Create my two operation instances
                     Operations depositInstance = new Deposit(currentBalance);
                     Operations withdrawInstance = new Withdraw(currentBalance);
+                    Operations transferInstance = new Transfer(currentBalance, logInInstance.getEmail());
 
                     // Add them to the operations lists
                     operations.add(depositInstance);
                     operations.add(withdrawInstance);
+                    operations.add(transferInstance);
 
                     // Create objects for the operations - adding the counter on as an identifier
                     for (Operations operation : operations) {
@@ -124,9 +129,10 @@ public class App {
                     // Match if each object in the list is equal to the user choice, if so, then
                     // call the entry method (POLYMORPHISM)
                     for (Object[] operationObject : operationsObjectList) {
+                        System.out.println(operationObject[0]);
                         if ((int) operationObject[0] == userChoice) {
                             // Cast the object to the operations data type
-                            Operations operation = (Operations) operationObject[1];
+                            var operation = (Operations) operationObject[1];
                             operation.displayText(scanner, currentBalance); // Polymorphism
                             // Set the current balance to the new value
                             currentBalance = operation.returnBalanceAfterTransaction();
@@ -192,7 +198,7 @@ public class App {
     // Method to check that the input is within the desired range
     public static boolean checkInputIsInRange(int userChoice, Scanner scanner) {
         // Use a while loop to constantly check if the value is under 1 or over 4
-        while (userChoice < 1 || userChoice > 5) {
+        while (userChoice < 1 || userChoice > 6) {
             IO.println(
                     ANSI_RED + "That input is invalid, please enter a value between 1 and 5 inclusive." + ANSI_RESET);
             IO.println(Menu);

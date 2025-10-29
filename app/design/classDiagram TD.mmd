@@ -1,0 +1,61 @@
+classDiagram
+    Operation <|-- Withdraw
+    Operation <|-- Deposit
+    Operation <|-- Transfer
+    Transfer <|-- TransferOperations
+
+Operation : - currentBalance
+Operation : + supportersInstance 
+Operation: +displayText()
+Operation: +calculateNewBalance()
+Operation: +returnBalanceAfterTransaction()
+class Withdraw{
+    -double balanceAfterTransaction
+    +displayText()
+    +calculateNewBalance()
+    +returnBalanceAfterTransaction()
+    +printNewBalance()
+}
+
+class Deposit{
+    -double balanceAfterTransaction
+    +displayText()
+    +calculateNewBalance()
+    +returnBalanceAfterTransaction()
+    +printNewBalance()
+}
+
+class Transfer{
+    -double balanceAfterTransaction
+    -String sortCode
+    -String accountNumber
+    +displayText() 
+    +calculateNewBalance()
+    +returnBalanceAfterTransaction()
+    +printNewBalance()
+    +performTransfer()
+}
+
+class TransferOperations {
+    -String transfereeEmail
+    +getTransferee()
+    +doesTransfereeExist()
+    +getWithdrawalAmount()
+    +addToTransactionHistory()
+}
+
+class Delete {
+    -String emailOfAccountToDelete
+    -int lineOfUserToDeleteRecord
+    -int lineOfUserInBalancesFile
+    -ArrayList linesToWrite
+    -Array<Deque> filesToReadUser
+    -Array<Deque> filesToWriteBackInto
+    +setUserToDeleteIndex()
+    +readFiles()
+    +writeDataBackIntoFiles() 
+    +transferBalancesToMainBank()
+}
+
+
+
