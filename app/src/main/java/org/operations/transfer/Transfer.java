@@ -89,18 +89,19 @@ public class Transfer extends Operations {
                                 // Subtract the amount to transfer away from the current balance
                                 calculateNewBalance(amountToTransfer, currentBalance);
 
-                                // Add to to transferers transaction history
-
                                 // Deposit the money to the transferee
                                 transferOperationsInstance.readAllLinesAfterTargetLine(amountToTransfer);
 
                                 // Withdraw from transferer
                                 var userBalanceInstance = new UserBalanceFileEditor(0, new LogIn());
                                 userBalanceInstance.readFile(Double.toString(currentBalance - amountToTransfer));
-                            }
 
+                                // Add to to transferers transaction history
+                            } else {
+                                break;
+                            }
                         } else {
-                            return;
+                            break;
                         }
                     } else {
                         System.out.println("Account number format inavlid!");
@@ -108,7 +109,7 @@ public class Transfer extends Operations {
                 }
 
             } catch (Exception e) {
-                // TODO: handle exception
+                System.out.println("Please enter a 6 digit sort code!");
             }
         }
 
@@ -117,7 +118,7 @@ public class Transfer extends Operations {
     @Override
     // Method to subtract add two values from each other
     public void calculateNewBalance(double amountToTransfer, double currentBalance) {
-        printNewBalance(currentBalance + amountToTransfer, amountToTransfer, currentBalance);
+        printNewBalance(currentBalance - amountToTransfer, amountToTransfer, currentBalance);
     }
 
     // Method to print the new balance and the amount deposited
@@ -157,7 +158,7 @@ public class Transfer extends Operations {
 
     // Method to check if the user wants to try again
     private boolean doesUserWantToTryAgain(Scanner scanner) {
-        System.out.println(App.ANSI_RED + "Process failed! Press y to try again" + App.ANSI_RESET);
+        System.out.print(App.ANSI_RED + "Process failed! Press y to try again" + App.ANSI_RESET);
         String userChoice = scanner.nextLine().toLowerCase();
 
         if (userChoice.equals("y")) {
