@@ -20,7 +20,8 @@ public class App {
                 3: Transfer
                 4: Display Transaction History
                 5: Check Balance
-                6: Exit
+                6: Delete Account
+                7: Exit
             ----------------------------------------------------
 
             Please select an option:  """ + ANSI_RESET;
@@ -98,6 +99,10 @@ public class App {
                 callCheckBalanceClass(userChoice);
                 break;
             case 6:
+                // Process deleting the users account
+                var deleteInstance = new Delete(logInInstance.getEmail());
+                Delete.removeUserRecord();
+            case 7:
                 // Break the loop
                 isExit = true;
                 break;
@@ -213,7 +218,7 @@ public class App {
     // Method to check that the input is within the desired range
     public static boolean checkInputIsInRange(int userChoice, Scanner scanner) {
         // Use a while loop to constantly check if the value is under 1 or over 4
-        while (userChoice < 1 || userChoice > 6) {
+        while (userChoice < 1 || userChoice > 7) {
             IO.println(
                     ANSI_RED + "That input is invalid, please enter a value between 1 and 5 inclusive." + ANSI_RESET);
             IO.println(Menu);

@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="Wy_pPj68s_y8wjzZ2pMG" name="Log in">
-        <mxGraphModel dx="811" dy="1708" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1039" dy="1631" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -920,7 +920,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="rJ2amVwpAAtqRxf9kdlk" name="Transfer">
-        <mxGraphModel dx="1661" dy="1708" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1889" dy="1631" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1438,7 +1438,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="b04q5Aas7-FinaRvc4vi" name="Delete">
-        <mxGraphModel dx="3171" dy="2007" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1889" dy="1631" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -1459,7 +1459,7 @@
                 <mxCell id="WTLnH8byf3fTb0J6SfBP-4" value="Get the email that is stored in the file" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="250" y="370" width="140" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="WTLnH8byf3fTb0J6SfBP-5" value="userCredentials.csv&lt;div&gt;userBalances.csv&lt;/div&gt;&lt;div&gt;hashmapDetails.csv&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
+                <mxCell id="WTLnH8byf3fTb0J6SfBP-5" value="userCredentials.csv&lt;div&gt;userBalances.csv&lt;/div&gt;&lt;div&gt;hashmapDetails.csv&lt;/div&gt;&lt;div&gt;bankDetials.csv&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" parent="1" vertex="1">
                     <mxGeometry x="220" y="40" width="200" height="270" as="geometry"/>
                 </mxCell>
                 <mxCell id="WTLnH8byf3fTb0J6SfBP-10" value="" style="edgeStyle=none;html=1;" parent="1" source="WTLnH8byf3fTb0J6SfBP-7" target="WTLnH8byf3fTb0J6SfBP-11" edge="1">
