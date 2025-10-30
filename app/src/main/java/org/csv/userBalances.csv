@@ -2,3 +2,5 @@ User,Balance
 master@fincore.com,1000000000000.00
 transferee@example.com,100.0
 test@example.com,20.00
+create2@example.com,0
+create3@example.com,30.00

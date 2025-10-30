@@ -11,8 +11,6 @@ import org.App;
 
 public class Delete {
     private static String emailOfAccountToDelete;
-    private int lineOfUserRecord;
-    private int lineOfUserInBalanceFile;
     private static int listPointer = 0;
     private static List<String> linesToWrite = new ArrayList<>();
     private static Deque<String> filesToReadUser = new ArrayDeque<>();

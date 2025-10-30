@@ -1,9 +1,12 @@
 package org.sign_up;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
+import org.App;
 import org.helpers.UserBalanceFileEditor;
 import org.helpers.UserCredentialFileEditor;
 import org.log_in.*;
@@ -63,6 +66,29 @@ public class SignUp {
             userBalanceFileEditorInstance.createObject(new String[] { userEmailToBe, "0" });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        // Generate a random sort code + account number - I know in a real application
+        // this wouldnt be the case
+        var random = new Random();
+
+        // Generate random values
+        int newSortCode = random.nextInt(100000, 999999);
+        int newAccountNumber = random.nextInt(10_000_000, 99_999_999);
+
+        // Convert numeric values to zero-padded strings so we can substring parts
+        String sortCodeStr = String.format("%06d", newSortCode);
+        String formattedSortCode = String.format("%s-%s-%s",
+                sortCodeStr.substring(0, 2),
+                sortCodeStr.substring(2, 4),
+                sortCodeStr.substring(4, 6));
+        String formattedAccountNumber = String.format("%08d", newAccountNumber);
+
+        try (FileWriter bankDetailsWriter = new FileWriter(App.directoryPath + "/csv/bankDetails.csv", true)) {
+            bankDetailsWriter
+                    .write(name + "," + formattedSortCode + "," + formattedAccountNumber + userEmailToBe + "\n");
+        } catch (IOException e) {
+            System.out.println("Failed to write to file");
         }
 
         // Add the details to the userCredentials.csv file

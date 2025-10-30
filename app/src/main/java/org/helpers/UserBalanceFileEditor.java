@@ -20,7 +20,7 @@ public class UserBalanceFileEditor implements DataManager {
     // Method to intiliase the balance to 0 when a user creates an account
     public void createObject(String[] newAccountArray) {
         try (FileWriter userBalanceFile = new FileWriter(org.App.directoryPath + "/csv/userBalances.csv", true)) {
-            userBalanceFile.write("\n" + newAccountArray[0] + "," + newAccountArray[1]);
+            userBalanceFile.write(newAccountArray[0] + "," + newAccountArray[1] + "\n");
         } catch (IOException eIoException) {
             eIoException.printStackTrace();
         }

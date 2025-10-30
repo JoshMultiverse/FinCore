@@ -100,7 +100,7 @@ public class App {
                 break;
             case 6:
                 // Process deleting the users account
-                var deleteInstance = new Delete(logInInstance.getEmail());
+                new Delete(logInInstance.getEmail());
                 Delete.removeUserRecord();
             case 7:
                 // Break the loop
