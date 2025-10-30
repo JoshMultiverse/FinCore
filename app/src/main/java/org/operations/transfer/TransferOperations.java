@@ -100,15 +100,12 @@ public class TransferOperations extends Transfer {
         String lineToWrite = "";
 
         try (Scanner userBalancesScanner = new Scanner(new File(App.directoryPath + "/csv/userBalances.csv"))) {
-            System.out.println(targetLine);
             while (userBalancesScanner.hasNextLine()) {
-                System.out.println(currentRowNumber);
                 // Set the line
                 if (currentRowNumber == targetLine) {
                     String[] split = userBalancesScanner.nextLine().split(",");
                     lineToWrite = split[0] + "," + Double.toString(Double.parseDouble(split[1]) + amountToTransfer);
                     linesInFile.add(lineToWrite);
-                    System.out.println(lineToWrite);
                 }
 
                 // Add to the arraylist

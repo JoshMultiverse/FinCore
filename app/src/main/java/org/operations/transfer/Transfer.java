@@ -82,8 +82,6 @@ public class Transfer extends Operations {
                         if (confirmUserWantsToDoTransaction(scanner, amountToTransfer)) {
                             // Check if the account exists in userBalances.csv
                             if (transferOperationsInstance.doesValueExistInUserBalances()) {
-                                System.out.println(true);
-
                                 // Begin to process transfer
 
                                 // Subtract the amount to transfer away from the current balance
@@ -96,7 +94,8 @@ public class Transfer extends Operations {
                                 var userBalanceInstance = new UserBalanceFileEditor(0, new LogIn());
                                 userBalanceInstance.readFile(Double.toString(currentBalance - amountToTransfer));
 
-                                // Add to to transferers transaction history
+                                // return now operation is complete
+                                return;
                             } else {
                                 break;
                             }
@@ -135,7 +134,7 @@ public class Transfer extends Operations {
 
     @Override
     public double returnBalanceAfterTransaction() {
-        return 0.0;
+        return balanceAfterTransaction;
     }
 
     private boolean isSortCodeValid() {

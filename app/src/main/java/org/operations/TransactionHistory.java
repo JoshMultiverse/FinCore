@@ -126,12 +126,9 @@ public class TransactionHistory implements DataManager {
 
                 String[] currentLineSplit = currentLine.split(",");
 
-                System.out.println(currentLineSplit[0]);
-
                 // Get the email element from the linked list and change when that line is
                 // reached.
                 if (currentLineSplit[0].equals(userEmail)) {
-                    System.out.println(true);
                     try {
                         // Get the key (userEmail)
                         LinkedList<String> targetLinkedList = transactionHistory.get(userEmail);
@@ -144,7 +141,7 @@ public class TransactionHistory implements DataManager {
                         updateHistory(formatLineToWrite(currentLineSplit, targetLinkedList), linesInFile);
                         break;
                     } finally {
-                        System.out.println("------------");
+                        System.out.println(ANSI_GREEN + "-------------------------");
                     }
                 }
             }

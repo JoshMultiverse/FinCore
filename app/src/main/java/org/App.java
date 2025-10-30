@@ -45,7 +45,6 @@ public class App {
         // Try to log user in - limited to 3 attempts
         while (counter < passwordAttempts) {
             boolean areCredentialsCorrect = logInInstance.checkUserCredentials(scanner);
-            IO.println(areCredentialsCorrect);
 
             // If their credentials are correct, break outside of the loop
             if (areCredentialsCorrect) {
@@ -161,10 +160,27 @@ public class App {
 
     public static String[] buildTransactionArray() {
         return new String[] {
-                userChoice == 1 ? "deposit" : "withdraw",
+                assignTransactionType(userChoice),
                 String.valueOf(oldBalance),
                 String.valueOf(currentBalance)
         };
+    }
+
+    private static String assignTransactionType(int userChoice) {
+        switch (userChoice) {
+            case 1 -> {
+                return "deposit";
+            }
+            case 2 -> {
+                return "withdraw";
+            }
+            case 3 -> {
+                return "transfer";
+            }
+            default -> {
+                return "";
+            }
+        }
     }
 
     public static void callCheckBalanceClass(double currentBalance) {
