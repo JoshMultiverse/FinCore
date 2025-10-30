@@ -122,11 +122,12 @@ public class Delete {
         String[] split = currentLine.split(",");
         double amountToReturn = Double.parseDouble(split[1]); // <-- Parse the double
 
-        // Reform the line to write index 1
-        String[] masterBankRecord = linesToWrite.get(1).split(",");
-        String lineToAdd = "master@fincore.com," + (masterBankRecord[1] + amountToReturn);
+        // Reform the line to write index 1 <-- Use the listPointer to get the index of
+        // the current file contents
+        String[] masterBankRecord = linesToWrite.get(listPointer + 1).split(",");
+        String lineToAdd = "master@fincore.com," + (Double.parseDouble(masterBankRecord[1]) + amountToReturn);
 
         // Set this new line in the ArrayList
-        linesToWrite.set(1, lineToAdd);
+        linesToWrite.set(listPointer + 1, lineToAdd);
     }
 }
