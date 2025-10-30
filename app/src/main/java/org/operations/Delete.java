@@ -1,7 +1,10 @@
 package org.operations;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 import org.App;
@@ -56,19 +59,10 @@ public class Delete {
                     if (currentLine.contains(emailOfAccountToDelete)) {
                         if (filesToReadUser.peek().equals("/csv/userBalances.csv")) {
                             // Handle differently as money is involved
-                            // Split the line
-                            String[] split = currentLine.split(",");
-                            double amountToReturn = Double.parseDouble(split[1]); // <-- Parse the double
-
-                            // Reform the line to write index 1
-                            String[] masterBankRecord = linesToWrite.get(1).split(",");
-                            String lineToAdd = "master@fincore.com," + (masterBankRecord[1] + amountToReturn);
-
-                            // Set this new line in the ArrayList
-                            linesToWrite.set(1, lineToAdd);
+                            transferBalancesToMainBank(currentLine);
                         }
 
-                        // Skip adding this line
+                        // Dont add this line to the list.
                         continue;
                     }
 
@@ -87,17 +81,54 @@ public class Delete {
                 System.out.println("File not found in working directory! ");
             }
         }
+
+        // Write data back into files
+        writeDataBackIntoFiles();
     }
 
-    public void writeDataBackIntoFiles() {
+    public static void writeDataBackIntoFiles() {
+        // Loop through the writing files queue
+        boolean isQueueEmpty = false;
+        listPointer = 0;
 
+        while (!isQueueEmpty) {
+            // Check the queue isnt empty
+            if (filesToWriteTo.peek() == null) {
+                // Set the boolean value to true
+                isQueueEmpty = true;
+                break;
+            }
+
+            // Call method to write the data back into the files
+            // If ArrayList contains values, clear the list
+            if (linesToWrite.size() > 0) {
+                listPointer = linesToWrite.size();
+            }
+
+            // Try to write back to all of the data into each of the files
+            try (var dataWriter = new BufferedWriter(new FileWriter(App.directoryPath + filesToWriteTo.peek()))) {
+                // Get the data from the newly created HashMap
+                for (String line : fileContents.get(filesToWriteTo.poll())) {
+                    dataWriter.write(line);
+                    dataWriter.newLine();
+                }
+
+            } catch (IOException e) {
+                System.out.println("Failed to write all of the data to this file!");
+            }
+        }
     }
 
-    public void setUserToDeleteIndex() {
+    public static void transferBalancesToMainBank(String currentLine) {
+        // Split the line
+        String[] split = currentLine.split(",");
+        double amountToReturn = Double.parseDouble(split[1]); // <-- Parse the double
 
-    }
+        // Reform the line to write index 1
+        String[] masterBankRecord = linesToWrite.get(1).split(",");
+        String lineToAdd = "master@fincore.com," + (masterBankRecord[1] + amountToReturn);
 
-    public void transferBalancesToMainBank() {
-
+        // Set this new line in the ArrayList
+        linesToWrite.set(1, lineToAdd);
     }
 }

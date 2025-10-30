@@ -1,2 +1,3 @@
-Name,SortCode,AccountNumber,Email
-test,00-00-00,00000000,transferee@example.com
+User,Balance
+master@fincore.com,1000000000000.00
+transferee@example.com,100.0
