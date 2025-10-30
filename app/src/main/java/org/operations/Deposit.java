@@ -57,7 +57,6 @@ public class Deposit extends Operations {
     @Override
     // Method to subtract add two values from each other
     public void calculateNewBalance(double amountToDeposit, double currentBalance) {
-        IO.println(currentBalance);
         printNewBalance(currentBalance + amountToDeposit, amountToDeposit, currentBalance);
     }
 

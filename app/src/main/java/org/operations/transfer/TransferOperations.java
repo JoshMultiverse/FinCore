@@ -1,8 +1,7 @@
 package org.operations.transfer;
 
 import java.io.*;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 import org.App;
 
@@ -16,9 +15,10 @@ public class TransferOperations extends Transfer {
 
     public double getTransferAmount(Scanner scanner) {
         while (true) {
+            // Get the amount to user wishes to transfer
+            System.out.print(App.ANSI_GREEN + "Enter the amount you wish to transfer: ");
+
             try {
-                // Get the amount to user wishes to transfer
-                System.out.print(App.ANSI_GREEN + "Enter the amount you wish to transfer: ");
                 double amountToTransfer = scanner.nextInt();
                 scanner.nextLine();
 
@@ -49,7 +49,7 @@ public class TransferOperations extends Transfer {
                 // Check if all values are equal to their indexes (-1 as email is ignored)
                 for (int index = 0; index < currentLineSplit.length - 1; index++) {
                     if (!currentLineSplit[index].equals(recordToCompare[index])) {
-                        isAValueIncorrect = true; // <-- Change because value is now false
+                        isAValueIncorrect = false; // <-- Change because value is now false
                     }
                 }
 
@@ -92,5 +92,52 @@ public class TransferOperations extends Transfer {
 
     public void addToTransactionHistory() {
 
+    }
+
+    public void readAllLinesAfterTargetLine(double amountToTransfer) {
+        List<String> linesInFile = new ArrayList<>();
+        int currentRowNumber = 0;
+        String lineToWrite = "";
+
+        try (Scanner userBalancesScanner = new Scanner(new File(App.directoryPath + "/csv/userBalances.csv"))) {
+            System.out.println(targetLine);
+            while (userBalancesScanner.hasNextLine()) {
+                System.out.println(currentRowNumber);
+                // Set the line
+                if (currentRowNumber == targetLine) {
+                    String[] split = userBalancesScanner.nextLine().split(",");
+                    lineToWrite = split[0] + "," + Double.toString(Double.parseDouble(split[1]) + amountToTransfer);
+                    linesInFile.add(lineToWrite);
+                    System.out.println(lineToWrite);
+                }
+
+                // Add to the arraylist
+                String currentLine = userBalancesScanner.nextLine();
+                linesInFile.add(currentLine);
+
+                // Increment the current row number
+                currentRowNumber++;
+            }
+
+            // Set line and write back to file
+            writeLinesBackToFile(linesInFile, lineToWrite);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found in current working directory!");
+        }
+    }
+
+    public void writeLinesBackToFile(List<String> linesInFile, String lineToWrite) {
+        // Write the line back to the file after the target line
+        try (BufferedWriter writer = new BufferedWriter(
+                new FileWriter(App.directoryPath + "/csv/userBalances.csv", false))) {
+            for (String line : linesInFile) {
+                writer.write(line);
+                writer.newLine();
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error when updating the balance");
+        }
     }
 }

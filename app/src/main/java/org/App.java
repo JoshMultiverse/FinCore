@@ -129,7 +129,6 @@ public class App {
                     // Match if each object in the list is equal to the user choice, if so, then
                     // call the entry method (POLYMORPHISM)
                     for (Object[] operationObject : operationsObjectList) {
-                        System.out.println(operationObject[0]);
                         if ((int) operationObject[0] == userChoice) {
                             // Cast the object to the operations data type
                             var operation = (Operations) operationObject[1];

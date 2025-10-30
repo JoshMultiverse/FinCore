@@ -3,14 +3,17 @@ package org.operations.transfer;
 import java.util.Scanner;
 
 import org.App;
+import org.helpers.UserBalanceFileEditor;
+import org.log_in.LogIn;
 import org.operations.Operations;
 
 public class Transfer extends Operations {
-    private double balanceAfterTransaction;
+    private static double balanceAfterTransaction;
     private String sortCode;
     private String accountNumber;
     private String transfererEmail;
     private String accountHoldersName;
+    private double amountToTransfer;
 
     public Transfer(double currentBalance, String email) {
         super(currentBalance);
@@ -60,7 +63,7 @@ public class Transfer extends Operations {
                         // Check if the amount to transfer is greater than the current balance, not
                         // possible
                         while (true) {
-                            double amountToTransfer = transferOperationsInstance.getTransferAmount(scanner);
+                            amountToTransfer = transferOperationsInstance.getTransferAmount(scanner);
 
                             // Get if user trying to transfer more than they currently have
                             if (amountToTransfer > currentBalance) {
@@ -76,13 +79,25 @@ public class Transfer extends Operations {
                         }
 
                         // Confirm the user wants to do the transaction?
-                        if (confirmUserWantsToDoTransaction(scanner, currentBalance)) {
+                        if (confirmUserWantsToDoTransaction(scanner, amountToTransfer)) {
                             // Check if the account exists in userBalances.csv
                             if (transferOperationsInstance.doesValueExistInUserBalances()) {
-                                // System.out.println(true);
-                            }
+                                System.out.println(true);
 
-                            // Begin to process transfer
+                                // Begin to process transfer
+
+                                // Subtract the amount to transfer away from the current balance
+                                calculateNewBalance(amountToTransfer, currentBalance);
+
+                                // Add to to transferers transaction history
+
+                                // Deposit the money to the transferee
+                                transferOperationsInstance.readAllLinesAfterTargetLine(amountToTransfer);
+
+                                // Withdraw from transferer
+                                var userBalanceInstance = new UserBalanceFileEditor(0, new LogIn());
+                                userBalanceInstance.readFile(Double.toString(currentBalance - amountToTransfer));
+                            }
 
                         } else {
                             return;
@@ -100,8 +115,21 @@ public class Transfer extends Operations {
     }
 
     @Override
+    // Method to subtract add two values from each other
     public void calculateNewBalance(double amountToTransfer, double currentBalance) {
+        printNewBalance(currentBalance + amountToTransfer, amountToTransfer, currentBalance);
+    }
 
+    // Method to print the new balance and the amount deposited
+    public static void printNewBalance(double newBalance, double amountToTransfer, double currentBalance) {
+        String amountToDepositFomatted = String
+                .format(App.ANSI_GREEN + "Transfer successful! You transferred: $%.2f" + App.ANSI_RED,
+                        amountToTransfer);
+        String newBalanceFormatted = String.format(App.ANSI_GREEN + "Your new balance is: $%.2f" + App.ANSI_RESET,
+                newBalance);
+        IO.println(amountToDepositFomatted);
+        IO.println(newBalanceFormatted);
+        balanceAfterTransaction = newBalance;
     }
 
     @Override
