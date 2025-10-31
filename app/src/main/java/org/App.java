@@ -31,7 +31,7 @@ public class App {
     public static double oldBalance;
     public static boolean returnToMainMenu = false;
     private static int passwordAttempts = 3;
-    public static String directoryPath = "FinCore/app/src/main/java/org";
+    public static String directoryPath = "/app/src/main/java/org";
 
     // Creating a log in instance
     private static LogIn logInInstance = new LogIn();

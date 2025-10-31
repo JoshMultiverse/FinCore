@@ -90,9 +90,9 @@ public class TransferOperations extends Transfer {
         }
     }
 
-    public void addToTransactionHistory() {
+    // public void addToTransactionHistory() {
 
-    }
+    // }
 
     public void readAllLinesAfterTargetLine(double amountToTransfer) {
         List<String> linesInFile = new ArrayList<>();

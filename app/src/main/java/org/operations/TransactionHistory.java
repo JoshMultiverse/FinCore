@@ -17,7 +17,7 @@ import org.interfaces.*;
 // Class to create a hashMap of the transaction history using the hashmapDetails.csv file
 public class TransactionHistory implements DataManager {
     // Attributes
-    private static HashMap<String, LinkedList<String>> transactionHistory = new HashMap<String, LinkedList<String>>();
+    private static HashMap<String, LinkedList<String>> transactionHistory = new HashMap<>();
     private static String userEmail;
     private static boolean doesUserHaveTransactionHistory = false;
     private static int lineCounter = 0;
