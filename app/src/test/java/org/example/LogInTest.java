@@ -100,4 +100,28 @@ class LogInTest {
         // Assert
         assertTrue(result);
     }
+
+    @Test
+    void testFindUserBalance_Valid_True() {
+        // Act
+        String email = "test@example.com";
+
+        // Arrange
+        double userBalance = LogIn.findUserBalance(email);
+
+        // Assert
+        assertEquals(userBalance, 20.00);
+    }
+
+    @Test
+    void testFindUserBalance_invalid_Null() {
+        // Act
+        String email = "test@example";
+
+        // Arrange
+        double userBalance = LogIn.findUserBalance(email);
+
+        // Assert
+        assertEquals(userBalance, -1.0);
+    }
 }

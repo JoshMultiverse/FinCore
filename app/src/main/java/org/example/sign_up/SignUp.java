@@ -2,6 +2,7 @@ package org.example.sign_up;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
@@ -14,17 +15,16 @@ import org.example.log_in.*;
 // Class to get the user to sign up
 public class SignUp {
     private String userEmailToBe = "";
-    private String passwordToBe = "";
+    private static String passwordToBe = "";
     private String name = "";
     private int correctPasswordsEntered = 1;
+    private boolean areThereAnyNullValues = true;
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
     private static final String ANSI_BLUE = "\u001B[34m";
 
-    // TODO Build an array of all inputs and check if they can be converted
-
-    public boolean signUpForm(Scanner scanner) throws InputMismatchException {
-        while (userEmailToBe.isEmpty() && passwordToBe.isEmpty() & name.isEmpty()) {
+    public boolean signUpForm(Scanner scanner) {
+        while (areThereAnyNullValues) {
             IO.print(ANSI_BLUE + "Please enter your name: " + ANSI_RESET);
             name = scanner.nextLine();
 
@@ -55,16 +55,30 @@ public class SignUp {
                     IO.println(ANSI_RED + "That was not the same as the previous password!" + ANSI_RESET);
                 }
             }
+
+            // Make a new string
+            String[] inputsToCompare = new String[] { name, userEmailToBe, passwordToBe };
+
+            // Check if there are any null values - if true loop will re run
+            areThereAnyNullValues = checkForNullValues(inputsToCompare);
+            areThereAnyNullValues = checkForIntegerValues(inputsToCompare);
         }
 
-        // TODO Create a new method for this which throws a IOException
+        try {
+            return createUserAccount();
+        } catch (Exception e) {
+            System.out.println("Wrong file path");
+            return false;
+        }
+    }
 
+    private boolean createUserAccount() throws Exception {
         // Intialise a starting balance
         try {
             UserBalanceFileEditor userBalanceFileEditorInstance = new UserBalanceFileEditor(0, new LogIn());
             userBalanceFileEditorInstance.createObject(new String[] { userEmailToBe, "0" });
-        } catch (IOException e) {
-            throw new IOException("Failed to create user balance file for: " + userEmailToBe, e);
+        } catch (Exception e) {
+            throw new IOException("Failed to create user balance file");
         }
         // Generate a random sort code + account number - I know in a real application
         // this wouldnt be the case
@@ -85,9 +99,8 @@ public class SignUp {
         try (FileWriter bankDetailsWriter = new FileWriter(App.directoryPath + "/csv/bankDetails.csv", true)) {
             bankDetailsWriter
                     .write(name + "," + formattedSortCode + "," + formattedAccountNumber + "," + userEmailToBe + "\n");
-        } catch (IOException e) {
-            System.out.println("Failed to write to file");
-            throw new IOException();
+        } catch (Exception e) {
+            throw new IOException("Failed to write to file");
         }
 
         // Add the details to the userCredentials.csv file
@@ -95,10 +108,41 @@ public class SignUp {
             tryAddCredentialsToFile();
             LogIn.setEmail(userEmailToBe);
             return true;
-        } catch (IOException eIoException) {
-            eIoException.printStackTrace();
-            throw new IOException();
+        } catch (Exception eIoException) {
+            throw new IOException("Failed to write to file");
         }
+    }
+
+    // Method which loops through the string array built and checks if each value is
+    // null
+    public static boolean checkForNullValues(String[] inputs) {
+        for (String input : inputs) {
+            if (input == null || input.trim().isEmpty()) {
+                System.out.println("Cannot have null value, please change it");
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean checkForIntegerValues(String[] inputs) {
+        for (String input : inputs) {
+            try {
+                // Try to parse as double as this is the most flexible type
+                Double.parseDouble(input);
+
+                System.out.println("Cannot enter a number - please try again");
+
+                // If this works, user has not entered a string, return false
+                return true;
+            } catch (Exception e) {
+                // Excpected Input - continue
+                continue;
+            }
+        }
+
+        return false;
     }
 
     public void tryAddCredentialsToFile() throws IOException {
@@ -108,7 +152,7 @@ public class SignUp {
     }
 
     // Method which returns if the password is equal to the most recent one entered.
-    public boolean doesPasswordMatch(String passwordToCompare) {
+    public static boolean doesPasswordMatch(String passwordToCompare) {
         return passwordToBe.equals(passwordToCompare);
     }
 

@@ -133,7 +133,7 @@ public class LogIn {
     }
 
     // Method to find the current user balance which is stored in the CSV file.
-    private static Double findUserBalance(String userEmail) {
+    public static Double findUserBalance(String userEmail) {
         try (Scanner scanner = new Scanner(new File(App.directoryPath + "/csv/userBalances.csv"))) {
             while (scanner.hasNextLine()) {
                 String[] values = scanner.nextLine().split(",");
@@ -154,10 +154,10 @@ public class LogIn {
                 }
             }
 
-            return null;
+            return -1.0;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return -1.0;
         }
     }
 

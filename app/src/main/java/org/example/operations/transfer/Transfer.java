@@ -9,8 +9,8 @@ import org.example.operations.Operations;
 
 public class Transfer extends Operations {
     private static double balanceAfterTransaction;
-    private String sortCode;
-    private String accountNumber;
+    private static String sortCode;
+    private static String accountNumber;
     private String transfererEmail;
     private String accountHoldersName;
     private double amountToTransfer;
@@ -49,7 +49,7 @@ public class Transfer extends Operations {
                                 accountNumber);
 
                         // If the account does not exist, then ask the user if they want to try again
-                        if (doesAccountExist) {
+                        if (!doesAccountExist) {
                             if (doesUserWantToTryAgain(scanner)) {
                                 continue;
                             } else {
@@ -105,6 +105,8 @@ public class Transfer extends Operations {
                     } else {
                         System.out.println("Account number format inavlid!");
                     }
+                } else {
+                    System.out.println("Please enter a 6 digit sort code!");
                 }
 
             } catch (Exception e) {
@@ -137,13 +139,13 @@ public class Transfer extends Operations {
         return balanceAfterTransaction;
     }
 
-    private boolean isSortCodeValid() {
+    public boolean isSortCodeValid() {
         // Check if the sort code is length of 6 (UK Standard)
         if (sortCode.length() == 6) {
-            sortCode = String.format("%s-%s-%s",
+            setSortCode(String.format("%s-%s-%s",
                     sortCode.substring(0, 2),
                     sortCode.substring(2, 4),
-                    sortCode.substring(4, 6));
+                    sortCode.substring(4, 6)));
             return true;
         } else {
             System.out.println("Sort code must be a length of 6!");
@@ -151,12 +153,12 @@ public class Transfer extends Operations {
         }
     }
 
-    private boolean isAccountNumberValid() {
+    public boolean isAccountNumberValid() {
         return accountNumber.length() == 8;
     }
 
     // Method to check if the user wants to try again
-    private boolean doesUserWantToTryAgain(Scanner scanner) {
+    public boolean doesUserWantToTryAgain(Scanner scanner) {
         System.out.print(App.ANSI_RED + "Process failed! Press y to try again" + App.ANSI_RESET);
         String userChoice = scanner.nextLine().toLowerCase();
 
@@ -167,7 +169,7 @@ public class Transfer extends Operations {
         return false;
     }
 
-    private boolean confirmUserWantsToDoTransaction(Scanner scanner, double amountToTransfer) {
+    public boolean confirmUserWantsToDoTransaction(Scanner scanner, double amountToTransfer) {
         String formattedTransferText = String.format("$%.2f", amountToTransfer);
 
         System.out.println("--------------------------------------------------");
@@ -181,5 +183,13 @@ public class Transfer extends Operations {
         System.out.print("Please enter y to confirm: ");
 
         return scanner.nextLine().trim().toLowerCase().equals("y");
+    }
+
+    public static void setSortCode(String value) {
+        sortCode = value;
+    }
+
+    public static void setAccountNumber(String value) {
+        accountNumber = value;
     }
 }

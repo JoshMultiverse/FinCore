@@ -4,7 +4,9 @@ import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.beans.Transient;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -50,55 +52,47 @@ public class SignUpTest {
     }
 
     @Test
-    void testSignUpForm_nullName_False() {
+    void testCheckForNullValues_nullName_False() {
         // Arrange
-        String inputString = "null\ntest100@example.com\ntest\ntest";
-        scanner = new Scanner(inputString);
+        String[] inputs = new String[] { null, "test", "test" };
 
         // Act
-        boolean isSignedUp = signUpInstance.signUpForm(scanner);
+        boolean areNullValues = SignUp.checkForNullValues(inputs);
 
-        // Assert
-        assertTrue(isSignedUp); // TODO Fix this
+        // Arrange
+        assertTrue(areNullValues);
     }
 
     @Test
     void testSignUpForm_nullEmail_False() {
         // Arrange
-        String inputString = "test\nnull\ntest\ntest";
-        scanner = new Scanner(inputString);
+        String[] inputs = new String[] { "TEST12", null, "test" };
 
         // Act
-        boolean isSignedUp = signUpInstance.signUpForm(scanner);
+        boolean areNullValues = SignUp.checkForNullValues(inputs);
 
-        // Assert
-        assertTrue(isSignedUp); // TODO Fix this
+        // Arrange
+        assertTrue(areNullValues);
     }
 
     @Test
     void testSignUpForm_WrongInput_Error() {
         // Arrange
-        String inputString = "6";
-        scanner = new Scanner(inputString);
+        String[] inputs = new String[] { "6", "6", "6", "6" };
 
         // Act and Assert
-        assertThrows(NoSuchElementException.class, () -> { // TODO Fix this IME
-            SignUp signUp = new SignUp();
-            signUp.signUpForm(scanner); // Or whatever method reads the input
-        });
+        assertTrue(SignUp.checkForIntegerValues(inputs));
     }
 
     @Test
-    void testSignUpForm_WrongDirectoryPath_IOException() {
+    void testCreateAccount_WrongDirectoryPath_IOException() {
         // Arrange
         App.directoryPath = "src/test/"; // <-- Purposely set the wrond directory path
         String inputString = "test\ntest100@example.com\ntest\ntest"; // <-- Valid input
         scanner = new Scanner(inputString);
 
         // Act & Assert
-        assertThrows(IOException.class, () -> {
-            signUpInstance.signUpForm(scanner);
-        });
+        assertFalse(signUpInstance.signUpForm(scanner));
     }
 
     @Test
@@ -123,5 +117,11 @@ public class SignUpTest {
 
         // Assert
         assertFalse(doesUserExist);
+    }
+
+    @Test
+    void testDoesPasswordMatch_NoFirstPassword() {
+        // Arrange
+
     }
 }

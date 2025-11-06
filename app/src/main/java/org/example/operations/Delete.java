@@ -77,6 +77,7 @@ public class Delete {
                 listPointer = linesToWrite.size();
             } catch (FileNotFoundException e) {
                 System.out.println("File not found in working directory! ");
+                return;
             }
         }
 
@@ -113,6 +114,7 @@ public class Delete {
 
             } catch (IOException e) {
                 System.out.println("Failed to write all of the data to this file!");
+                return;
             }
         }
     }

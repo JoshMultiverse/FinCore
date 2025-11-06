@@ -25,6 +25,7 @@ public class TransferOperations extends Transfer {
                 return amountToTransfer;
             } catch (InputMismatchException eInputMismatchException) {
                 System.out.println("Cannot enter text! ");
+                return -1;
             }
         }
     }
@@ -39,34 +40,34 @@ public class TransferOperations extends Transfer {
 
         // Make a new scanner object to scan through the bank details file
         try (Scanner bankDetailsScanner = new Scanner(new File(App.directoryPath + "/csv/bankDetails.csv"))) {
-            String[] recordToCompare = new String[] { name, sortCode, accountNumber };
+            String[] recordToCompare = new String[] { name, sortCode, accountNumber, transfereeEmail };
 
             while (bankDetailsScanner.hasNextLine()) {
                 // Split the line into a string array
                 String[] currentLineSplit = bankDetailsScanner.nextLine().split(",");
-                boolean isAValueIncorrect = true; // <-- If an index does not match, this will change to true
+                boolean isAValueIncorrect = false; // <-- If an index does not match, this will change to true
 
                 // Check if all values are equal to their indexes (-1 as email is ignored)
                 for (int index = 0; index < currentLineSplit.length - 1; index++) {
                     if (!currentLineSplit[index].equals(recordToCompare[index])) {
-                        isAValueIncorrect = false; // <-- Change because value is now false
+                        isAValueIncorrect = true; // <-- Change because value is now false
                     }
                 }
 
                 // Return the value if it is false, else continue
-                if (isAValueIncorrect) {
+                if (!isAValueIncorrect) {
                     setTransfereeEmail(currentLineSplit[3]);
                     targetLine = line;
-                    return false;
+                    return true;
                 }
 
                 line++;
             }
 
-            return true;
-        } catch (FileNotFoundException eFileNotFoundException) {
+            return false;
+        } catch (IOException e) {
             System.out.println("File could not be found in working directory");
-            return true;
+            return false;
         }
     }
 
@@ -91,10 +92,6 @@ public class TransferOperations extends Transfer {
         }
     }
 
-    // public void addToTransactionHistory() {
-
-    // }
-
     public void readAllLinesAfterTargetLine(double amountToTransfer) {
         List<String> linesInFile = new ArrayList<>();
         int currentRowNumber = 0;
@@ -102,16 +99,18 @@ public class TransferOperations extends Transfer {
 
         try (Scanner userBalancesScanner = new Scanner(new File(App.directoryPath + "/csv/userBalances.csv"))) {
             while (userBalancesScanner.hasNextLine()) {
-                // Set the line
+                // Read the line ONCE
+                String currentLine = userBalancesScanner.nextLine();
+
+                // Check if this is the target line
                 if (currentRowNumber == targetLine) {
-                    String[] split = userBalancesScanner.nextLine().split(",");
+                    String[] split = currentLine.split(",");
                     lineToWrite = split[0] + "," + Double.toString(Double.parseDouble(split[1]) + amountToTransfer);
                     linesInFile.add(lineToWrite);
+                } else {
+                    // Add the unchanged line
+                    linesInFile.add(currentLine);
                 }
-
-                // Add to the arraylist
-                String currentLine = userBalancesScanner.nextLine();
-                linesInFile.add(currentLine);
 
                 // Increment the current row number
                 currentRowNumber++;
