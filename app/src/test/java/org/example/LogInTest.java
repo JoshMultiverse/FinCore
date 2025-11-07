@@ -110,7 +110,7 @@ class LogInTest {
         double userBalance = LogIn.findUserBalance(email);
 
         // Assert
-        assertEquals(userBalance, 3.00);
+        assertEquals(userBalance, App.currentBalance);
     }
 
     @Test

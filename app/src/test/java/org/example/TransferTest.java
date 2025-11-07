@@ -188,7 +188,7 @@ public class TransferTest {
     @Test
     void displayTest_Valid() {
         // Arrange
-        LogIn.setEmail("teste@example.com");
+        LogIn.setEmail("test@example.com");
         scanner = new Scanner("000000\n00000000\ntest\n2\ny");
         var transferInstance = new Transfer(5, "test@example.com");
 

@@ -21,6 +21,7 @@ public class TransactionHistory implements DataManager {
     private static String userEmail;
     private static boolean doesUserHaveTransactionHistory = false;
     private static int lineCounter = 0;
+    private static int targetLine = 0;
     private static String lineToWrite = "";
     // Intialising global variables
     private static final String ANSI_RED = "\u001B[31m";
@@ -68,6 +69,10 @@ public class TransactionHistory implements DataManager {
 
         // Loop through the array of strings and add each value to the linked list
         for (String transaction : history) {
+            if (transaction.equals("null")) {
+                continue;
+            }
+
             transactionHistoryistoryLinkedList.add(transaction);
         }
 
@@ -99,7 +104,7 @@ public class TransactionHistory implements DataManager {
         }
     }
 
-    public String formatLineToWrite(String[] currentLineSplit, LinkedList<String> targetLinkedList) {
+    public String formatLineToWrite(String[] currentLineSplit, List<String> targetLinkedList) {
         // Format the string we want to write
         lineToWrite = currentLineSplit[0] + "," + targetLinkedList.toString()
                 .replace("[", "")
@@ -115,6 +120,8 @@ public class TransactionHistory implements DataManager {
         lineCounter = 0;
         List<String> linesInFile = new ArrayList<>();
         String[] transactionArray = App.buildTransactionArray();
+        List<String> targetLinkedList = new LinkedList<>();
+        String[] targetLineArray = new String[3];
 
         // Refresh the list
         try (Scanner scanner = new Scanner(new File(App.directoryPath + "/csv/hashmapDetails.csv"))) {
@@ -135,20 +142,30 @@ public class TransactionHistory implements DataManager {
                 if (currentLineSplit[0].equals(userEmail)) {
                     try {
                         // Get the key (userEmail)
-                        LinkedList<String> targetLinkedList = transactionHistory.get(userEmail);
+                        targetLinkedList = transactionHistory.get(userEmail);
+
+                        // Set the target line
+                        targetLineArray = currentLineSplit;
 
                         // Add the new object into the LL
                         targetLinkedList.add(transactionArray[0] + ";" + transactionArray[1] + ";"
                                 + transactionArray[2] + ":");
 
-                        // Update the history by building the line to write
-                        updateHistory(formatLineToWrite(currentLineSplit, targetLinkedList), linesInFile);
-                        break;
+                        // Set the target line
+                        targetLine = lineCounter;
                     } finally {
                         System.out.println(ANSI_GREEN + "-------------------------");
                     }
                 }
             }
+
+            // If the target has not been assigned, return the method with value null
+            if (targetLineArray.length == 0 && targetLinkedList.size() == 0) {
+                return;
+            }
+
+            // Update the history by building the line to write
+            updateHistory(formatLineToWrite(targetLineArray, targetLinkedList), linesInFile);
         } catch (FileNotFoundException e) {
             System.out.println("File is not found in working directory");
         }
@@ -157,7 +174,7 @@ public class TransactionHistory implements DataManager {
     @Override
     // Method to write the lines back into the file from the ArrayList
     public void updateHistory(String lineToWrite, List<String> linesInFile) {
-        linesInFile.set(lineCounter - 1, lineToWrite);
+        linesInFile.set(targetLine - 1, lineToWrite);
 
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter(App.directoryPath + "/csv/hashmapDetails.csv", false))) {
