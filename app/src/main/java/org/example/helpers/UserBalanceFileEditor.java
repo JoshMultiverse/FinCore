@@ -10,11 +10,9 @@ import org.example.interfaces.*;
 public class UserBalanceFileEditor implements DataManager {
     private String currentLine;
     private int LineCounter;
-    private LogIn logInInstance;
 
-    public UserBalanceFileEditor(int resetLineCounter, LogIn logInInstance) {
+    public UserBalanceFileEditor(int resetLineCounter) {
         this.LineCounter = resetLineCounter;
-        this.logInInstance = logInInstance;
     }
 
     // Method to intiliase the balance to 0 when a user creates an account
@@ -45,10 +43,10 @@ public class UserBalanceFileEditor implements DataManager {
                 LineCounter += 1;
 
                 // Check if the email is in the first field in the CSV file
-                String[] currentLineParts = currentLine.split("\\s{0,},\\s{0,}");
+                String[] currentLineParts = currentLine.split(",");
 
                 // If the email element is equal to the email
-                if (currentLineParts[0].equals(logInInstance.getEmail())) {
+                if (currentLineParts[0].equals(LogIn.getEmail())) {
                     // Parse the balance as a double so I can change the updated balance
                     double doubleTypeBalance = Double.parseDouble(currentLineParts[1]);
 
@@ -64,6 +62,8 @@ public class UserBalanceFileEditor implements DataManager {
                     } finally {
                         // No code to be ran
                     }
+                } else {
+                    System.out.println("Email does not exist!");
                 }
             }
 

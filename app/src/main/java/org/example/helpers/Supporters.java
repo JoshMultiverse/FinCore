@@ -16,19 +16,4 @@ public class Supporters {
     public double returnNewBalance(double balanceAfterTransaction) {
         return balanceAfterTransaction;
     }
-
-    // Method to check if the input can be converted to a number
-    public static boolean doesInputConvertIntoNumber(String userInput) {
-        try {
-            Double.parseDouble(userInput);
-
-            System.out.println("Cannot have a number! ");
-
-            // return false if error isnt thrown
-            return false;
-        } catch (InputMismatchException e) {
-            // This is what we want here - return true
-            return true;
-        }
-    }
 }

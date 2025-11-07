@@ -3,6 +3,7 @@ package org.example;
 import org.example.helpers.*;
 import org.example.log_in.*;
 import org.example.operations.*;
+import org.example.operations.transactions.TransactionHistory;
 import org.example.operations.transfer.Transfer;
 
 import java.util.*;
@@ -35,7 +36,7 @@ public class App {
 
     // Creating a log in instance
     private static LogIn logInInstance = new LogIn();
-    private static UserBalanceFileEditor fileEditorInstance = new UserBalanceFileEditor(0, logInInstance);
+    private static UserBalanceFileEditor fileEditorInstance = new UserBalanceFileEditor(0);
 
     // Main function
     public static void main(String[] args) {

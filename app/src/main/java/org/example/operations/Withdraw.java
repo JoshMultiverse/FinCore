@@ -53,7 +53,7 @@ public class Withdraw extends Operations {
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
             calculateNewBalance(supportersInstance.truncateTo2DP(amountToWithdraw), currentBalance);
         } catch (InputMismatchException eInputMismatchException) {
-            if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
+            if (supportersInstance.isReturnToMainMenu(scanner.nextLine().toLowerCase())) {
                 org.example.App.returnToMainMenu = true;
                 return;
             } else {

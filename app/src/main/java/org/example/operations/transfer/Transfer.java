@@ -83,6 +83,7 @@ public class Transfer extends Operations {
                             // Check if the account exists in userBalances.csv
                             if (transferOperationsInstance.doesValueExistInUserBalances()) {
                                 // Begin to process transfer
+                                LogIn.setEmail(transfererEmail);
 
                                 // Subtract the amount to transfer away from the current balance
                                 calculateNewBalance(amountToTransfer, currentBalance);
@@ -91,7 +92,7 @@ public class Transfer extends Operations {
                                 transferOperationsInstance.readAllLinesAfterTargetLine(amountToTransfer);
 
                                 // Withdraw from transferer
-                                var userBalanceInstance = new UserBalanceFileEditor(0, new LogIn());
+                                var userBalanceInstance = new UserBalanceFileEditor(0);
                                 userBalanceInstance.readFile(Double.toString(currentBalance - amountToTransfer));
 
                                 // return now operation is complete

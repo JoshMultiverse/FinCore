@@ -199,7 +199,7 @@ public class TransferTest {
     @Test
     void displayTest_NoUser_False() {
         // Arrange
-        LogIn.setEmail("teste@example.com");
+        LogIn.setEmail("test@example.com");
         scanner = new Scanner("000000\n00000000\nfake\n2\ny");
         var transferInstance = new Transfer(5, "test@example.com");
 
@@ -210,7 +210,7 @@ public class TransferTest {
     @Test
     void displayTest_transferBiggerThanBalance() {
         // Arrange
-        LogIn.setEmail("teste@example.com");
+        LogIn.setEmail("test@example.com");
         scanner = new Scanner("000000\n00000000\ntest\n6\nn");
         var transferInstance = new Transfer(5, "test@example.com");
 

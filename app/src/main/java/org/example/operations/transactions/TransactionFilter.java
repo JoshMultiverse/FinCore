@@ -4,7 +4,7 @@ import java.lang.classfile.Superclass;
 import java.util.*;
 
 import org.example.App;
-import org.example.operations.TransactionHistory;
+import org.example.operations.transactions.TransactionHistory;
 
 public class TransactionFilter extends TransactionHistory {
     // Attributes

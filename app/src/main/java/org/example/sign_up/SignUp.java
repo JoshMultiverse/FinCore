@@ -75,7 +75,7 @@ public class SignUp {
     private boolean createUserAccount() throws Exception {
         // Intialise a starting balance
         try {
-            UserBalanceFileEditor userBalanceFileEditorInstance = new UserBalanceFileEditor(0, new LogIn());
+            UserBalanceFileEditor userBalanceFileEditorInstance = new UserBalanceFileEditor(0);
             userBalanceFileEditorInstance.createObject(new String[] { userEmailToBe, "0" });
         } catch (Exception e) {
             throw new IOException("Failed to create user balance file");

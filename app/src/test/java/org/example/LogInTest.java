@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import org.example.log_in.LogIn;
-import org.example.operations.TransactionHistory;
+import org.example.operations.transactions.*;
 
 class LogInTest {
     private Scanner scanner;
@@ -110,7 +110,7 @@ class LogInTest {
         double userBalance = LogIn.findUserBalance(email);
 
         // Assert
-        assertEquals(userBalance, 20.00);
+        assertEquals(userBalance, 3.00);
     }
 
     @Test

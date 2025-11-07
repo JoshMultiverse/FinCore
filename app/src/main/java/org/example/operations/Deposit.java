@@ -10,7 +10,7 @@ public class Deposit extends Operations {
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
     public static Supporters supportersInstance = new Supporters();
-    private static double balanceAfterTransaction = 0;
+    protected double balanceAfterTransaction = 0;
 
     public Deposit(double currentBalance) {
         super(currentBalance);
@@ -40,7 +40,7 @@ public class Deposit extends Operations {
             // Call this method to calculate the balance. Truncate the value entered to 2DP.
             calculateNewBalance(supportersInstance.truncateTo2DP(amountToDeposit), currentBalance);
         } catch (InputMismatchException eInputMismatchException) {
-            if (supportersInstance.isReturnToMainMenu(scanner.nextLine())) {
+            if (supportersInstance.isReturnToMainMenu(scanner.nextLine().toLowerCase())) {
                 org.example.App.returnToMainMenu = true;
                 return;
             } else {
@@ -61,13 +61,13 @@ public class Deposit extends Operations {
     }
 
     // Method to print the new balance and the amount deposited
-    public static void printNewBalance(double newBalance, double amountToDeposit, double currentBalance) {
+    public void printNewBalance(double newBalance, double amountToDeposit, double currentBalance) {
         String amountToDepositFomatted = String
                 .format(ANSI_GREEN + "Deposit successful! You deposited: $%.2f" + ANSI_RED, amountToDeposit);
         String newBalanceFormatted = String.format(ANSI_GREEN + "Your new balance is: $%.2f" + ANSI_RESET, newBalance);
         IO.println(amountToDepositFomatted);
         IO.println(newBalanceFormatted);
-        balanceAfterTransaction = newBalance;
+        this.balanceAfterTransaction = newBalance;
     }
 
     @Override
