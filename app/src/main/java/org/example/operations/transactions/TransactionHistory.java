@@ -92,16 +92,22 @@ public class TransactionHistory implements DataManager {
     @Override
     // Method to check if the user has a new key value
     public void createObject(String[] transactionArray) {
-        // Add to transaction history hashmap
-        transactionHistory.put(userEmail, buildLinkedList(transactionArray));
+        // Check if email exists
+        if (transactionHistory.get(userEmail) == null) {
+            // Add to transaction history hashmap
+            transactionHistory.put(userEmail, buildLinkedList(transactionArray));
 
-        // Try add a new key + value to the file
-        try (FileWriter fileWriter = new FileWriter(App.directoryPath + "/csv/hashmapDetails.csv", true)) {
-            fileWriter.write(userEmail + "," + transactionArray[0] + ";" + transactionArray[1] + ";"
-                    + transactionArray[2] + ":" + "\n");
-        } catch (IOException e) {
-            System.out.println("Appending to back of file failed!");
+            // Try add a new key + value to the file
+            try (FileWriter fileWriter = new FileWriter(App.directoryPath + "/csv/hashmapDetails.csv", true)) {
+                fileWriter.write(userEmail + "," + transactionArray[0] + ";" + transactionArray[1] + ";"
+                        + transactionArray[2] + ":" + "\n");
+            } catch (IOException e) {
+                System.out.println("Appending to back of file failed!");
+            }
         }
+
+        // If not null, return as value exists
+        return;
     }
 
     public String formatLineToWrite(String[] currentLineSplit, List<String> targetLinkedList) {

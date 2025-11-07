@@ -52,4 +52,12 @@ public class TransactionHistoryTest {
         transactionHistoryInstance.readFile("test@example.com");
     }
 
+    @Test
+    void testCreateObject_Valid_True() {
+        // Arrange
+        var transactionHistoryInstance = new TransactionHistory("test100@example.com");
+
+        // Act
+        transactionHistoryInstance.createObject(new String[] { "deposit", "0", "100" });
+    }
 }
